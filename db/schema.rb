@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_27_135341) do
+ActiveRecord::Schema.define(version: 2021_10_28_171820) do
 
   create_table "fields", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "retailer_id"
+    t.text "description"
     t.index ["retailer_id"], name: "index_fields_on_retailer_id"
   end
 

@@ -59,6 +59,6 @@ class FieldsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def field_params
-      params.require(:field).permit(:title)
+      params.require(:field).permit(:title, :description)
     end
 end
