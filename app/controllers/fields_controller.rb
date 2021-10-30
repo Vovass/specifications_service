@@ -39,10 +39,10 @@ class FieldsController < ApplicationController
   end
 
   # DELETE /fields/1 or /fields/1.json
-  def destroy # сделать редирект на @retailer.show при удалении филда
+  def destroy
     @field.destroy
     respond_to do |format|
-      format.html { redirect_to fields_url, notice: "Field was successfully destroyed." }
+      format.html { redirect_to retailer_url(@field.retailer_id), notice: "Field was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -59,6 +59,6 @@ class FieldsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def field_params
-      params.require(:field).permit(:title, :description)
+      params.require(:field).permit(:title, :description, :vocabulary_id)
     end
 end

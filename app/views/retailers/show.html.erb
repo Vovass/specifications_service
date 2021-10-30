@@ -6,16 +6,14 @@
 </p>
 
 <p>
-  <strong>Fields:</strong>
+  <strong><%= (@retailer.fields.count > 0) ? "Fields:" : "No fields" %></strong>
 <ul>
   <% @retailer.fields.each_with_index do |r_field, index| %>
     <li>
-      <tr>
-        <td><%= link_to "#{index + 1}. #{r_field.title}", r_field %><td>
-<!--        <td><%#= link_to 'Edit', r_field %></td>-->
-<!--        <td><%#= link_to 'Destroy', r_field, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
-      </tr>
+      <span><%= link_to "#{index + 1}. #{r_field.title}", r_field %></span>
+      <span style="margin-left: 20px"><%= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?' } %></span>
     </li>
+    </br>
   <% end %>
 </ul>
 </p>

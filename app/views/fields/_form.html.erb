@@ -23,6 +23,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :vocabulary , "Vocabulary"%>
+    <%= f.collection_select :vocabulary_id, Vocabulary.all, :id, :name %>
+  </div>
+
+  <div class="field">
     <%= f.submit "#{@field.new_record? ? 'Create' : 'Update' }"%><br>
   </div>
 <% end %>
