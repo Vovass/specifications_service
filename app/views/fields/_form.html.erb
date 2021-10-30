@@ -23,6 +23,12 @@
   </div>
 
   <div class="field">
+    <%= f.label :vocabulary , "Vocabulary"%>
+    <%= f.collection_select :vocabulary_id, Vocabulary.all, :id, :name %>
+  </div>
+  <p style="color: #B00100">Миша, надо ли тут кнопка добавить новый вокабулар который мы отом выберем, или мы в этот момент должны завести задачу на вакабулар ?</p>
+
+  <div class="field">
     <%= f.submit "#{@field.new_record? ? 'Create' : 'Update' }"%><br>
   </div>
 <% end %>

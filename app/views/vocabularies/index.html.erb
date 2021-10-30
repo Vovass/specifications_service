@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Vocabularies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Spec name</th>
+      <th>Used in spec</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vocabularies.each do |vocabulary| %>
+      <tr>
+        <td><%= vocabulary.name %></td>
+        <td><%= vocabulary.description %></td>
+        <td><%= vocabulary.spec_name %></td>
+        <td><%= vocabulary.fields.size.blank? ? 0 : vocabulary.fields.size %></td>
+        <td><%= link_to 'Show', vocabulary %></td>
+        <td><%= link_to 'Edit', edit_vocabulary_path(vocabulary) %></td>
+        <td><%= link_to 'Destroy', vocabulary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Vocabulary', new_vocabulary_path %>
