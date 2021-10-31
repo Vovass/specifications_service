@@ -1,0 +1,28 @@
+<%= form_for [@field, @variation] do |f| %>
+  <% if @variation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@variation.errors.count, "error") %> prohibited this field from being saved:</h2>
+
+      <ul>
+        <% @variation.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %><br>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.rich_text_area :description %><br>
+  </div>
+
+  <div class="field">
+    <%= f.submit "#{@variation.new_record? ? 'Create' : 'Update' }"%><br>
+  </div>
+<% end %>
+

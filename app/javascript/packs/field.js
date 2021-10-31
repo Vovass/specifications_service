@@ -1,6 +1,3 @@
-//= link_tree ../images
-//= link_directory ../stylesheets .css
-
 $(document).ready(function(){
     $('.search_form').click(function () {
         alert("worked!")

@@ -1,13 +1,39 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Title:</strong>
+  <strong class="search_form">Title:</strong>
   <%= @field.title %>
 </p>
 
+<!--<p>-->
+<!--  <strong>Description:</strong>-->
+  <%#= @field.description %>
+<!--</p>-->
+
+
 <p>
-  <strong>Description:</strong>
-  <%= @field.description %>
+  <strong><%= (@field.variations.count > 0) ? "Variations:" : "No variations" %></strong>
+  <strong style="color: red">- Миша надо ли создавать General автомато для всех или если нету ну и пускай нету</strong>
+
+<ul>
+  <select id="1">
+  <% @field.variations.each_with_index do |var, index| %>
+      <option class="sel<%=index%>"><%= var.name%></option>
+
+
+<!--    <li>-->
+<!--      <span><%#= link_to "#{index + 1}. #{var.name}", var %></span><br>-->
+      <%#= var.description %>
+<!--      <span style="margin-left: 20px"><%#= link_to 'Remove', var, method: :delete, data: { confirm: 'Are you sure?' } %></span>-->
+<!--    </li>-->
+<!--    </br>-->
+  <% end %>
+  </select>
+</ul>
+</p>
+
+<p>
+  <%= link_to "Add Variation", new_field_variation_path(@field) %>
 </p>
 
 <p>
@@ -16,4 +42,4 @@
 </p>
 
 <%= link_to 'Edit', edit_field_path(@field) %> |
-<%= link_to 'Back', retailer_path(@field.retailer_id) %>
+<%= link_to 'Back', retailer_path(@field.retailer_id), class: 'search_form' %>
