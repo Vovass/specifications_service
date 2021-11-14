@@ -1,6 +1,7 @@
 class FieldsController < ApplicationController
   before_action :set_field, only: %i[ show edit update destroy ]
   before_action :set_retailer, only: %i[ new create ]
+  before_action :cur_retailer, only: %i[ new create edit ]
 
   # GET /fields/1 or /fields/1.json
   def show
@@ -56,6 +57,10 @@ class FieldsController < ApplicationController
 
   def set_retailer
     @retailer = Retailer.find(params[:retailer_id])
+  end
+
+  def cur_retailer
+    @cur_retailer = @retailer || @field.retailer
   end
 
     # Only allow a list of trusted parameters through.

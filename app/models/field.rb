@@ -12,7 +12,8 @@ class Field < ApplicationRecord
   private
 
   def set_name
-    self.title = self.title.empty? ? vocabulary.spec_name : self.title
+    # self.title = self.title.empty? ? vocabulary.spec_name : self.title
+    self.title = vocabulary.spec_name
   end
 end
 
