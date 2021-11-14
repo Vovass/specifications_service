@@ -19,6 +19,7 @@ class FieldsController < ApplicationController
   def create
     @field = @retailer.fields.new(field_params)
       if @field.save
+        @field.variations.new({name: "General", description: nil }).save
       redirect_to @retailer
       else
       render :new
@@ -49,16 +50,16 @@ class FieldsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_field
-      @field = Field.find(params[:id])
-    end
+  def set_field
+    @field = Field.find(params[:id])
+  end
 
   def set_retailer
     @retailer = Retailer.find(params[:retailer_id])
   end
 
     # Only allow a list of trusted parameters through.
-    def field_params
-      params.require(:field).permit(:title, :description, :vocabulary_id)
-    end
+  def field_params
+    params.require(:field).permit(:title, :description, :vocabulary_id)
+  end
 end

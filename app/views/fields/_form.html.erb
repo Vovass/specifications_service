@@ -13,18 +13,25 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <%= f.text_field :title %><br>
+    <p style="color: #B00100">В данный момент поле <strong>Title</strong> можно скрыть, я думаю где нибудь
+      да понадобится кастомные имена отличающиеся от спецификации, по этому оставил,
+      но скрыв это поле можно добиться того же результата, поле будет заполнено автоматически по Spec Name из вакабуляра
+    </p>
+    <%= f.text_field :title, class: "hide" %><br>
   </div>
 
-  <div class="field">
+  <div class="field hide">
     <%= f.label :description %><br>
+    <p style="color: #B00100">А вот тут похоже надо создавать вариацию General или задовать её кастомное название,
+      но без создания поля Field это сделать нельзя, можно поставить создавать поле автоматом,
+      а это содержимое просто скопировать в него на первое время
+    </p>
     <%= f.rich_text_area :description %><br>
-<!--    <trix-editor input="field_description"></trix-editor>-->
   </div>
 
   <div class="field">
     <%= f.label :vocabulary , "Vocabulary"%>
-    <%= f.collection_select :vocabulary_id, Vocabulary.all, :id, :name %>
+    <%= f.collection_select :vocabulary_id, Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}, :id, :name %>
   </div>
   <p style="color: #B00100">Миша, надо ли тут кнопка добавить новый вокабулар который мы отом выберем, или мы в этот момент должны завести задачу на вакабулар ?</p>
 

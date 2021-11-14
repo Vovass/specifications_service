@@ -10,8 +10,8 @@
 <ul>
   <% @retailer.fields.each_with_index do |r_field, index| %>
     <li>
-      <span><%= link_to "#{index + 1}. #{r_field.title}", r_field %></span>
-      <span style="margin-left: 20px"><%= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      <span><%= link_to "#{index + 1}. #{r_field.title}", r_field, :"data-turbolinks" => "false" %></span>
+      <span style="margin-left: 20px"><%= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?'} %></span>
     </li>
     </br>
   <% end %>
@@ -19,7 +19,7 @@
 </p>
 
 <p>
-  <%= link_to "Add Field", new_retailer_field_path(@retailer) %>
+  <%= Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}.empty? ? (link_to "New Vocabulary word", new_vocabulary_path) : (link_to "Add Field", new_retailer_field_path(@retailer)) %>
 </p>
 
 <%= link_to 'Back', retailers_path %>

@@ -5,6 +5,15 @@ class Field < ApplicationRecord
 
   belongs_to :retailer
   belongs_to :vocabulary
+  has_many :variations
+
+  before_validation :set_name
+
+  private
+
+  def set_name
+    self.title = self.title.empty? ? vocabulary.spec_name : self.title
+  end
 end
 
 # 1.
