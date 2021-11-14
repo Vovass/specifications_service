@@ -34,8 +34,8 @@ class VariationsController < ApplicationController
   def update
     respond_to do |format|
       if @variation.update(variation_params)
-        format.html { redirect_to @variation, notice: "Variation was successfully updated." }
-        format.json { render :show, status: :ok, location: @variation }
+        format.html { redirect_to field_path(@variation.field_id), :"data-turbolinks" => "false", notice: "Variation was successfully updated." }
+        format.json { render :show, status: :ok, location: field_path(@variation.field_id) }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @variation.errors, status: :unprocessable_entity }
