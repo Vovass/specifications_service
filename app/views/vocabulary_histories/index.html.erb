@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Vocabularies', vocabularies_path %>
+
+<h1>Vocabulary Histories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Spec name</th>
+      <th>Vocabulary field</th>
+      <th>Version #</th>
+      <th colspan="6"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vocabulary_histories.each do |vocabulary_history| %>
+      <tr>
+        <td><%= vocabulary_history.updated_at %></td>
+        <td><%= vocabulary_history.name %></td>
+        <td><%= vocabulary_history.description %></td>
+        <td><%= vocabulary_history.spec_name %></td>
+        <td><%= vocabulary_history.vocabulary.nil? ? "Destroyed field" : vocabulary_history.vocabulary.name  %></td>
+        <td><%= vocabulary_history.version.nil? ? "No set version" : vocabulary_history.version %></td>
+        <td><%= vocabulary_history.vocabulary.nil? ? "" : (link_to 'Show', vocabulary_history) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

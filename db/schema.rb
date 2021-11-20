@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_31_150446) do
+ActiveRecord::Schema.define(version: 2021_11_20_141751) do
 
   create_table "action_text_rich_texts", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -82,6 +82,17 @@ ActiveRecord::Schema.define(version: 2021_10_31_150446) do
     t.string "spec_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "vocabulary_histories", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "spec_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "vocabulary_id"
+    t.integer "version"
+    t.index ["vocabulary_id"], name: "index_vocabulary_histories_on_vocabulary_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

@@ -25,6 +25,7 @@ class VocabulariesController < ApplicationController
 
     respond_to do |format|
       if @vocabulary.save
+        VocabularyHistory.new(vocabulary_history_params).save!
         format.html { redirect_to @vocabulary, notice: "Vocabulary was successfully created." }
         format.json { render :show, status: :created, location: @vocabulary }
       else
@@ -38,6 +39,7 @@ class VocabulariesController < ApplicationController
   def update
     respond_to do |format|
       if @vocabulary.update(vocabulary_params)
+        VocabularyHistory.new(vocabulary_history_params).save!
         format.html { redirect_to @vocabulary, notice: "Vocabulary was successfully updated." }
         format.json { render :show, status: :ok, location: @vocabulary }
       else
@@ -49,6 +51,7 @@ class VocabulariesController < ApplicationController
 
   # DELETE /vocabularies/1 or /vocabularies/1.json
   def destroy
+    VocabularyHistory.new(vocabulary_history_params(destroy: @vocabulary.name)).save!
     @vocabulary.destroy
     respond_to do |format|
       format.html { redirect_to vocabularies_url, notice: "Vocabulary was successfully destroyed." }
@@ -66,4 +69,20 @@ class VocabulariesController < ApplicationController
     def vocabulary_params
       params.require(:vocabulary).permit(:name, :description, :spec_name, :vocabulary_id)
     end
+
+  def vocabulary_history_params(destroy: false)
+    return {
+      vocabulary_id: @vocabulary[:id],
+      name: "Vocabulary field #{destroy} - destroyed",
+      description: "Vocabulary field #{destroy} - destroyed",
+      spec_name: "Vocabulary field #{destroy} - destroyed"
+    } if destroy
+
+    {
+      vocabulary_id: @vocabulary[:id],
+      name: vocabulary_params[:name],
+      description: vocabulary_params[:description],
+      spec_name: vocabulary_params[:spec_name]
+    }
+  end
 end

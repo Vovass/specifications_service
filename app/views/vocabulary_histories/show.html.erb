@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<%= link_to 'Field data', vocabulary_path(@vocabulary_history.vocabulary) %>
+
+<table>
+  <thead>
+  <tr>
+    <th>Version </th>
+    <th>Date </th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Spec name</th>
+    <th>Vocabulary field</th>
+    <th colspan="7"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @vocabulary_history.vocabulary.vocabulary_histories.order(version: :desc).each_with_index do |vocabulary_history, index| %>
+    <tr>
+      <td>№ <%= vocabulary_history.version %></td>
+      <td><%= vocabulary_history.updated_at %></td>
+      <% if vocabulary_history.version != 1 && vocabulary_history.name != (old_name = @vocabulary_history.vocabulary.vocabulary_histories.select {|el| el.version == vocabulary_history.version - 1}.first.name) %>
+        <td style="color: #009966"><%= vocabulary_history.name %><s style="color: #990033"><%= old_name %></s></td>
+      <% else %>
+        <td><%= vocabulary_history.name %></td>
+      <% end %>
+
+      <% if vocabulary_history.version != 1 && vocabulary_history.description != (old_desc = @vocabulary_history.vocabulary.vocabulary_histories.select {|el| el.version == vocabulary_history.version - 1}.first.description) %>
+        <td style="color: #009966"><%= vocabulary_history.description %><s style="color: #990033"><%= old_desc %></s></td>
+      <% else %>
+        <td><%= vocabulary_history.description %></td>
+      <% end %>
+
+      <% if vocabulary_history.version != 1 && vocabulary_history.spec_name != (old_spec_name = @vocabulary_history.vocabulary.vocabulary_histories.select {|el| el.version == vocabulary_history.version - 1}.first.spec_name) %>
+        <td style="color: #009966"><%= vocabulary_history.spec_name %><s style="color: #990033"><%= old_spec_name %></s></td>
+      <% else %>
+        <td><%= vocabulary_history.spec_name %></td>
+      <% end %>
+
+      <td><%= vocabulary_history.vocabulary.name  %></td>
+
+      <td><%= (index == 0) ? "Current content" : (link_to 'Restore history content', vocabulary_history, method: :put, data: { confirm: 'Are you sure?' }) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back', vocabulary_histories_path %>
