@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'field history', vocabulary_history_path(@vocabulary.vocabulary_histories.first) %>
+
 <p>
   <strong>Name:</strong>
   <%= @vocabulary.name %>

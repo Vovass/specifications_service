@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    console.log('foo');
     $('#sel').change(function(){
         var optionSelected = $("option:selected", this);
         var number = parseInt(optionSelected.attr('class').match(/\d+/)[0]);
