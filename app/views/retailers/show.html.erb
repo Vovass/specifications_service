@@ -1,25 +1,66 @@
 <p id="notice"><%= notice %></p>
 
+<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+<datalist id="datalistOptions">
+  <option value="San Francisco">
+  <option value="New York">
+  <option value="Seattle">
+  <option value="Los Angeles">
+  <option value="Chicago">
+</datalist>
+
 <p>
-  <strong>Title:</strong>
+  <strong>Retailer: </strong>
   <%= @retailer.title %>
 </p>
 
-<p>
-  <strong><%= (@retailer.fields.count > 0) ? "Fields:" : "No fields" %></strong>
-<ul>
-  <% @retailer.fields.each_with_index do |r_field, index| %>
-    <li>
-      <span><%= link_to "#{index + 1}. #{r_field.title}", r_field, :"data-turbolinks" => "false" %></span>
-      <span style="margin-left: 20px"><%= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?'} %></span>
-    </li>
-    </br>
-  <% end %>
-</ul>
-</p>
+<div class="row">
+  <div class="col-sm-2">
+    <%= Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}.empty? ? (link_to "New Vocabulary word", new_vocabulary_path, class: "btn btn-primary") : (link_to "Add new field", new_retailer_field_path(@retailer), class: "btn btn-primary") %>
+  </div>
+</div>
 
-<p>
-  <%= Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}.empty? ? (link_to "New Vocabulary word", new_vocabulary_path) : (link_to "Add Field", new_retailer_field_path(@retailer)) %>
-</p>
+
+
+<% if (@retailer.fields.count > 0)  %>
+  <strong>Fields:</strong>
+  <div class="row caption content">
+    <div class="col-sm-2">Name</div>
+    <div class="col-sm-6">Description</div>
+    <div class="col-sm-2">Vocabulary name</div>
+    <div class="col-sm-2">4</div>
+  </div>
+
+  <% @retailer.fields.each_with_index do |r_field, index| %>
+    <div class="row content">
+      <div class="col-sm-2"><%= link_to "#{index + 1}. #{r_field.title}", r_field, :"data-turbolinks" => "false" %></div>
+      <div class="col-sm-6">
+        <% if r_field.variations.size > 1%>
+          <select class="sel_desc result_hide_field_<%=index%>">
+            <% r_field.variations.each_with_index do |var, r_index| %>
+              <option id ="sel-<%=r_index%>" class="sel-<%=r_index%>"><%= var.name%></option>
+            <% end %>
+          </select>
+        <%end %>
+        <div >
+          <% r_field.variations.each_with_index do |var, r_index| %>
+            <div class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>" ><%= var.description %></div>
+            <% if r_field.variations.size != 1 %>
+              <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Remove variation', var, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %></span>
+            <% end %>
+            <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Edit variation', edit_variation_path(var), class: "btn btn-secondary" %></span>
+            <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to "Add Variation", new_field_variation_path(r_field), class: "btn btn-secondary" %></span>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-sm-2"><%= r_field.vocabulary.name%></div>
+      <div class="col-sm-2"><%= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?'} %></div>
+    </div>
+  <% end %>
+<% else %>
+  <strong>No fields</strong>
+<% end %>
+
+
 
 <%= link_to 'Back', retailers_path %>
