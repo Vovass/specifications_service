@@ -16,7 +16,9 @@
   <div class="result_hide_field">
     <% @field.variations.each_with_index do |var, index| %>
       <div class="hide hide_result_<%=index%>"><%= var.description %></div>
-      <span class="hide hide_result_<%=index%>"><%= link_to 'Remove variation', var, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      <% if @field.variations.size != 1 %>
+        <span class="hide hide_result_<%=index%>"><%= link_to 'Remove variation', var, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      <% end %>
       <span class="hide hide_result_<%=index%>"><%= link_to 'Edit variation', edit_variation_path(var) %></span>
     <% end %>
   </div>
