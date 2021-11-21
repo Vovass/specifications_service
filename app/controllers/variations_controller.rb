@@ -24,7 +24,7 @@ class VariationsController < ApplicationController
   def create
     @variation = @field.variations.new(variation_params)
     if @variation.save
-      redirect_to @field
+      redirect_to @field.retailer
     else
       render :new
     end
@@ -34,8 +34,8 @@ class VariationsController < ApplicationController
   def update
     respond_to do |format|
       if @variation.update(variation_params)
-        format.html { redirect_to field_path(@variation.field_id), :"data-turbolinks" => "false", notice: "Variation was successfully updated." }
-        format.json { render :show, status: :ok, location: field_path(@variation.field_id) }
+        format.html { redirect_to @variation.field.retailer, :"data-turbolinks" => "false", notice: "Variation was successfully updated." }
+        format.json { render :show, status: :ok, location: @variation.field.retailer }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @variation.errors, status: :unprocessable_entity }
@@ -47,7 +47,7 @@ class VariationsController < ApplicationController
   def destroy
     @variation.destroy
     respond_to do |format|
-      format.html { redirect_to field_url(@variation.field_id), notice: "Variation was successfully destroyed." }
+      format.html { redirect_to @variation.field.retailer, notice: "Variation was successfully destroyed." }
       format.json { head :no_content }
     end
   end

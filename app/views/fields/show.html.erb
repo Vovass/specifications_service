@@ -13,6 +13,7 @@
       <option id ="sel-<%=index %>" class="sel-<%=index%>"><%= var.name%></option>
   <% end %>
   </select>
+  <p style="color: red"> Тут не будет работать отображение из-за нового JS может вырубить эту страницу нафиг?</p>
   <div class="result_hide_field">
     <% @field.variations.each_with_index do |var, index| %>
       <div class="hide hide_result_<%=index%>"><%= var.description %></div>
@@ -35,4 +36,4 @@
 </p>
 
 <%= link_to 'Edit', edit_field_path(@field) %> |
-<%= link_to 'Back', retailer_path(@field.retailer_id)%>
+<%= link_to 'Back', retailer_path(@field.retailer_id), :"data-turbolinks" => "false"%>
