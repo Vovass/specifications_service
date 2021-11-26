@@ -10,9 +10,23 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require_tree ../stylesheets
  *= require_self
  *= require trix/dist/trix
-
+ *= require bootstrap-select
  */
-@import "bootstrap";
+
+@import "~bootstrap";
+@import "~trix";
+//@import "~bootstrap-select";
+
+@import '../stylesheets/actiontext';
+@import '../stylesheets/fields';
+@import '../stylesheets/retailers';
+@import '../stylesheets/scaffolds';
+@import '../stylesheets/variations';
+@import '../stylesheets/vocabularies';
+@import '../stylesheets/vocabulary_histories';
+
+
+
