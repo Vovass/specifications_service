@@ -16,6 +16,7 @@ gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 gem 'jquery-turbolinks'
+gem 'bootstrap-select-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
@@ -26,7 +27,7 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 5.0.0'
 gem 'sassc'
 gem 'jquery-rails'
 gem 'trix'

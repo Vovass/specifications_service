@@ -1,14 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-<input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-<datalist id="datalistOptions">
-  <option value="San Francisco">
-  <option value="New York">
-  <option value="Seattle">
-  <option value="Los Angeles">
-  <option value="Chicago">
-</datalist>
-
 <p>
   <strong>Retailer: </strong>
   <%= @retailer.title %>
@@ -36,7 +27,7 @@
       <div class="col-sm-2"><%= link_to "#{index + 1}. #{r_field.title}", r_field, :"data-turbolinks" => "false" %></div>
       <div class="col-sm-6">
         <% if r_field.variations.size > 1%>
-          <select class="sel_desc result_hide_field_<%=index%>">
+          <select class="sel_desc result_hide_field_<%=index%> ">
             <% r_field.variations.each_with_index do |var, r_index| %>
               <option id ="sel-<%=r_index%>" class="sel-<%=r_index%>"><%= var.name%></option>
             <% end %>
