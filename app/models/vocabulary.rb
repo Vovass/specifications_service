@@ -4,6 +4,9 @@ class Vocabulary < ApplicationRecord
   validates :name, :spec_name, uniqueness: true
 
   has_rich_text :description
+
+  belongs_to :user
+
   has_many :fields
   has_many :vocabulary_histories
 end

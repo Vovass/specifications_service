@@ -1,4 +1,5 @@
 class RetailersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_retailer, only: %i[ show edit update destroy ]
 
   # GET /retailers or /retailers.json
@@ -21,7 +22,7 @@ class RetailersController < ApplicationController
 
   # POST /retailers or /retailers.json
   def create
-    @retailer = Retailer.new(retailer_params)
+    @retailer = current_user.retailers.new(retailer_params)
 
     respond_to do |format|
       if @retailer.save

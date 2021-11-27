@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_20_141751) do
+ActiveRecord::Schema.define(version: 2021_11_27_194111) do
 
   create_table "action_text_rich_texts", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -50,6 +50,16 @@ ActiveRecord::Schema.define(version: 2021_11_20_141751) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "comments", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.text "body"
+    t.integer "retailer_id"
+    t.integer "parent_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "fields", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
@@ -57,7 +67,9 @@ ActiveRecord::Schema.define(version: 2021_11_20_141751) do
     t.bigint "retailer_id"
     t.text "description"
     t.bigint "vocabulary_id"
+    t.bigint "user_id"
     t.index ["retailer_id"], name: "index_fields_on_retailer_id"
+    t.index ["user_id"], name: "index_fields_on_user_id"
     t.index ["vocabulary_id"], name: "index_fields_on_vocabulary_id"
   end
 
@@ -65,6 +77,25 @@ ActiveRecord::Schema.define(version: 2021_11_20_141751) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_retailers_on_user_id"
+  end
+
+  create_table "users", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "role"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "variations", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
@@ -73,7 +104,9 @@ ActiveRecord::Schema.define(version: 2021_11_20_141751) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "field_id"
+    t.bigint "user_id"
     t.index ["field_id"], name: "index_variations_on_field_id"
+    t.index ["user_id"], name: "index_variations_on_user_id"
   end
 
   create_table "vocabularies", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
@@ -82,6 +115,8 @@ ActiveRecord::Schema.define(version: 2021_11_20_141751) do
     t.string "spec_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_vocabularies_on_user_id"
   end
 
   create_table "vocabulary_histories", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|

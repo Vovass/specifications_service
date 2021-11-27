@@ -4,4 +4,5 @@ class Variation < ApplicationRecord
   has_rich_text :description
 
   belongs_to :field
+  belongs_to :user
 end
