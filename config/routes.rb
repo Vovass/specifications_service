@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  get "/users", to: "users#index"
+
   resources :vocabulary_histories
   resources :vocabularies
   resources :retailers do

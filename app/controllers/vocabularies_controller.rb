@@ -21,7 +21,7 @@ class VocabulariesController < ApplicationController
 
   # POST /vocabularies or /vocabularies.json
   def create
-    @vocabulary = Vocabulary.new(vocabulary_params)
+    @vocabulary = current_user.vocabularies.new(vocabulary_params)
 
     respond_to do |format|
       if @vocabulary.save

@@ -1,0 +1,21 @@
+<h1>Users</h1>
+
+<p style="color: red"> задать инстой парочку ролей из select которые и будут записываться в базу при сете ! только если ты админ</p>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

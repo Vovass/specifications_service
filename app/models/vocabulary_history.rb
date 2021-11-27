@@ -9,7 +9,6 @@ class VocabularyHistory < ApplicationRecord
   private
 
   def tag_version_number
-    binding.pry
     self.version = generate_version_number
   end
 

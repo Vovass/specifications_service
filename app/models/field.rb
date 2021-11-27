@@ -5,6 +5,8 @@ class Field < ApplicationRecord
 
   belongs_to :retailer
   belongs_to :vocabulary
+  belongs_to :user
+
   has_many :variations
 
   before_validation :set_name
