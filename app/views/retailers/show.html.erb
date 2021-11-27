@@ -52,4 +52,20 @@
 
 
 
+
+  <div class="card-body">
+    <p class="font-weight-bold" style="color: red">Comments или Будь первым кто оставит комментарий</p>
+    <%= render @retailer.comments %>
+    <%= form_with(model: [@retailer, @retailer.comments.build]) do |f| %>
+      <div class="form-group">
+        <%= f.label 'New comment' %>
+        <%= f.text_area :body, class: 'form-control' %>
+      </div>
+      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+
+
+
+
 <%= link_to 'Back', retailers_path %>
