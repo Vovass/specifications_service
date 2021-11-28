@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "/users", to: "users#index"
 
   resources :tickets
+  resources :field_histories
   resources :vocabulary_histories
   resources :vocabularies
   resources :retailers do

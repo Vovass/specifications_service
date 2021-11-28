@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fields_title: MyString
+  variation_name: MyString
+  description: MyText
+  verstion: 1
+
+two:
+  fields_title: MyString
+  variation_name: MyString
+  description: MyText
+  verstion: 1

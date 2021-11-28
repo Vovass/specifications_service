@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fields title:</strong>
+  <%= @field_history.fields_title %>
+</p>
+
+<p>
+  <strong>Variation name:</strong>
+  <%= @field_history.variation_name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @field_history.description %>
+</p>
+
+<p>
+  <strong>Verstion:</strong>
+  <%= @field_history.verstion %>
+</p>
+
+<%= link_to 'Edit', edit_field_history_path(@field_history) %> |
+<%= link_to 'Back', field_histories_path %>

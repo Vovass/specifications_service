@@ -9,8 +9,8 @@ class Field < ApplicationRecord
 
   has_many :fields_tickets
   has_many :tickets, through: :fields_tickets
-
   has_many :variations
+  has_many :field_histories
 
   before_validation :set_name
 

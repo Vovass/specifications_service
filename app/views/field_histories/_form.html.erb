@@ -1,0 +1,37 @@
+<%= form_with(model: field_history) do |form| %>
+  <% if field_history.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(field_history.errors.count, "error") %> prohibited this field_history from being saved:</h2>
+
+      <ul>
+        <% field_history.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :fields_title %>
+    <%= form.text_field :fields_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :variation_name %>
+    <%= form.text_field :variation_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :verstion %>
+    <%= form.number_field :verstion %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

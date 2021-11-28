@@ -1,6 +1,8 @@
 class Ticket < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
+  has_rich_text :description
+
   has_many :fields_tickets
   has_many :fields, through: :fields_tickets
 
