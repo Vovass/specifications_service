@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_194111) do
+ActiveRecord::Schema.define(version: 2021_11_28_141809) do
 
   create_table "action_text_rich_texts", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(version: 2021_11_27_194111) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "field_histories", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.string "fields_title"
+    t.string "variation_name"
+    t.text "description"
+    t.integer "version"
+    t.string "vocabulary_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "field_id"
+    t.index ["field_id"], name: "index_field_histories_on_field_id"
+  end
+
   create_table "fields", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
@@ -73,12 +85,25 @@ ActiveRecord::Schema.define(version: 2021_11_27_194111) do
     t.index ["vocabulary_id"], name: "index_fields_on_vocabulary_id"
   end
 
+  create_table "fields_tickets", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "field_id"
+  end
+
   create_table "retailers", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_retailers_on_user_id"
+  end
+
+  create_table "tickets", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "link"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
