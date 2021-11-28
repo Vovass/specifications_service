@@ -18,9 +18,9 @@ class FieldsController < ApplicationController
 
   # POST /fields or /fields.json
   def create
-    @field = @retailer.fields.new(field_params)
+    @field = @retailer.fields.new(field_params.merge(user_id: current_user.id))
       if @field.save
-        @field.variations.new({name: "General", description: nil }).save
+        @field.variations.new({name: "General", description: nil }.merge(user_id: current_user.id)).save
       redirect_to @retailer
       else
       render :new
