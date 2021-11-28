@@ -7,6 +7,9 @@ class Field < ApplicationRecord
   belongs_to :vocabulary
   belongs_to :user
 
+  has_many :fields_tickets
+  has_many :tickets, through: :fields_tickets
+
   has_many :variations
 
   before_validation :set_name

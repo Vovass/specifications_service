@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_27_194111) do
+ActiveRecord::Schema.define(version: 2021_11_28_134513) do
 
   create_table "action_text_rich_texts", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -73,12 +73,25 @@ ActiveRecord::Schema.define(version: 2021_11_27_194111) do
     t.index ["vocabulary_id"], name: "index_fields_on_vocabulary_id"
   end
 
+  create_table "fields_tickets", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "field_id"
+  end
+
   create_table "retailers", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_retailers_on_user_id"
+  end
+
+  create_table "tickets", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "link"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
