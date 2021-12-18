@@ -3,6 +3,8 @@
   <%= @retailer.title %>
 </p>
 
+<%= link_to 'Fields History', retailer_field_histories_path(@retailer) %>
+
 <div class="row">
   <div class="col-sm-2">
     <%= Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}.empty? ? (link_to "New Vocabulary word", new_vocabulary_path, class: "btn btn-primary") : (link_to "Add new field", new_retailer_field_path(@retailer), class: "btn btn-primary") %>

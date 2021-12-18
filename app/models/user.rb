@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :variations
   has_many :vocabularies
   has_many :comments
+  has_many :field_histories
 
   after_create :set_default_role
 
