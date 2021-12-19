@@ -7,4 +7,8 @@ class Retailer < ApplicationRecord
   has_many :fields
   has_many :field_histories
   has_many :comments
+
+  def self.search(search)
+    where("title like '#{search}%'") if search
+  end
 end
