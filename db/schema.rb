@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_19_154404) do
+ActiveRecord::Schema.define(version: 2021_12_19_185929) do
 
   create_table "action_text_rich_texts", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -158,6 +158,8 @@ ActiveRecord::Schema.define(version: 2021_12_19_154404) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vocabulary_id"
     t.integer "version"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_vocabulary_histories_on_user_id"
     t.index ["vocabulary_id"], name: "index_vocabulary_histories_on_vocabulary_id"
   end
 

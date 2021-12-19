@@ -32,7 +32,6 @@ class VocabularyHistoriesController < ApplicationController
   end
 
   def restore_history_content
-    binding.pry
     respond_to do |format|
       if @vocabulary.update(history_restored_params)
         VocabularyHistory.new(vocabulary_history_restored_params).save!
@@ -77,7 +76,8 @@ class VocabularyHistoriesController < ApplicationController
       vocabulary_id: @vocabulary[:id],
       name: @vocabulary_history.name,
       description:  @vocabulary_history.description,
-      spec_name: @vocabulary_history.spec_name
+      spec_name: @vocabulary_history.spec_name,
+      user_id: current_user.id
     }
   end
 end

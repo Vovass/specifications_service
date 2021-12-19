@@ -11,7 +11,8 @@
       <th>Spec name</th>
       <th>Vocabulary field</th>
       <th>Version #</th>
-      <th colspan="6"></th>
+      <th>User</th>
+      <th colspan="7"></th>
     </tr>
   </thead>
 
@@ -24,6 +25,7 @@
         <td><%= vocabulary_history.spec_name %></td>
         <td><%= vocabulary_history.vocabulary.nil? ? "Destroyed field" : vocabulary_history.vocabulary.name  %></td>
         <td><%= vocabulary_history.version.nil? ? "No set version" : vocabulary_history.version %></td>
+        <td><%= vocabulary_history.user.nil? ? "No user" : vocabulary_history.user.email %></td>
         <td><%= vocabulary_history.vocabulary.nil? ? "" : (link_to 'Show', vocabulary_history) %></td>
       </tr>
     <% end %>

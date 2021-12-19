@@ -75,14 +75,16 @@ class VocabulariesController < ApplicationController
       vocabulary_id: @vocabulary[:id],
       name: "Vocabulary field #{_destroy} - destroyed",
       description: "Vocabulary field #{_destroy} - destroyed",
-      spec_name: "Vocabulary field #{_destroy} - destroyed"
+      spec_name: "Vocabulary field #{_destroy} - destroyed",
+      user_id: current_user.id
     } if _destroy
 
     {
       vocabulary_id: @vocabulary[:id],
       name: vocabulary_params[:name],
       description: vocabulary_params[:description],
-      spec_name: vocabulary_params[:spec_name]
+      spec_name: vocabulary_params[:spec_name],
+      user_id: current_user.id
     }
   end
 end

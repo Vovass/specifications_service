@@ -42,7 +42,7 @@
 
 
       <td><%= (index == 0) ? "Current content" : (link_to 'Restore history content', vocabulary_history, method: :put, data: { confirm: 'Are you sure?' }) %></td>
-<!--      <td><%#= vocabulary_history.vocabulary.user.email  %></td>-->
+      <td><%= vocabulary_history.user.email  %></td>
     </tr>
   <% end %>
   </tbody>

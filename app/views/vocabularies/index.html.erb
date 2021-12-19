@@ -8,7 +8,8 @@
       <th>Description</th>
       <th>Display name</th>
       <th>Used in spec</th>
-      <th colspan="4"></th>
+      <th>Created by</th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -19,6 +20,7 @@
         <td><%= vocabulary.description %></td>
         <td><%= vocabulary.spec_name %></td>
         <td><%= vocabulary.fields.size.blank? ? 0 : vocabulary.fields.size %></td>
+        <td><%= vocabulary.user.nil? ? "" : vocabulary.user.email %></td>
         <td><%= link_to 'Show', vocabulary %></td>
         <td><%= link_to 'Edit', edit_vocabulary_path(vocabulary) %></td>
         <td><%= link_to 'Destroy', vocabulary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
