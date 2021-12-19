@@ -51,7 +51,7 @@ class VocabulariesController < ApplicationController
 
   # DELETE /vocabularies/1 or /vocabularies/1.json
   def destroy
-    VocabularyHistory.new(vocabulary_history_params(destroy: @vocabulary.name)).save!
+    VocabularyHistory.new(vocabulary_history_params(_destroy: @vocabulary.name)).save!
     @vocabulary.destroy
     respond_to do |format|
       format.html { redirect_to vocabularies_url, notice: "Vocabulary was successfully destroyed." }
@@ -70,19 +70,21 @@ class VocabulariesController < ApplicationController
       params.require(:vocabulary).permit(:name, :description, :spec_name, :vocabulary_id)
     end
 
-  def vocabulary_history_params(destroy: false)
+  def vocabulary_history_params(_destroy: false)
     return {
       vocabulary_id: @vocabulary[:id],
-      name: "Vocabulary field #{destroy} - destroyed",
-      description: "Vocabulary field #{destroy} - destroyed",
-      spec_name: "Vocabulary field #{destroy} - destroyed"
-    } if destroy
+      name: "Vocabulary field #{_destroy} - destroyed",
+      description: "Vocabulary field #{_destroy} - destroyed",
+      spec_name: "Vocabulary field #{_destroy} - destroyed",
+      user_id: current_user.id
+    } if _destroy
 
     {
       vocabulary_id: @vocabulary[:id],
       name: vocabulary_params[:name],
       description: vocabulary_params[:description],
-      spec_name: vocabulary_params[:spec_name]
+      spec_name: vocabulary_params[:spec_name],
+      user_id: current_user.id
     }
   end
 end

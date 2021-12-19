@@ -3,5 +3,6 @@ class Retailer < ApplicationRecord
 
   belongs_to :user
   has_many :fields
+  has_many :field_histories
   has_many :comments
 end

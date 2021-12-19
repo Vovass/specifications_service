@@ -3,6 +3,7 @@ class VocabularyHistory < ApplicationRecord
 
   has_rich_text :description
   belongs_to :vocabulary
+  belongs_to :user
 
   before_create :tag_version_number
 

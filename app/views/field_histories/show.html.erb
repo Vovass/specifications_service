@@ -1,24 +1,56 @@
-<p id="notice"><%= notice %></p>
+<%= link_to "Retailer #{@field_history.retailer.title}", retailer_path(@field_history.retailer_id) %>
+<%= link_to "Field #{@field_history.fields_title}", field_path(@field_history.field_id) %>
 
-<p>
-  <strong>Fields title:</strong>
-  <%= @field_history.fields_title %>
-</p>
+<table>
+  <thead>
+  <tr>
+    <th>Version </th>
+    <th>Date </th>
+    <th>Fields title</th>
+    <th>Variation name</th>
+    <th>Description</th>
+    <th>Vocabulary name</th>
+    <th>Restore?</th>
+    <th>Created by</th>
+    <th colspan="9"></th>
+  </tr>
+  </thead>
 
-<p>
-  <strong>Variation name:</strong>
-  <%= @field_history.variation_name %>
-</p>
+  <tbody>
+  <% @field_history.retailer.field_histories.where(field_id: @field_history.field_id).order(version: :desc).each_with_index do |field_history, index| %>
+    <tr>
+      <td>№ <%= field_history.version %></td>
+      <td><%= field_history.updated_at %></td>
+      <% if field_history.version != 1 && field_history.fields_title != (old_name = @field_history.retailer.field_histories.where(field_id: @field_history.field_id).select {|el| el.version == field_history.version - 1}.first.fields_title) %>
+        <td style="color: #009966"><%= field_history.fields_title %><s style="color: #990033"><%= old_name %></s></td>
+      <% else %>
+        <td><%= field_history.fields_title %></td>
+      <% end %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @field_history.description %>
-</p>
+      <% if field_history.version == 1 && field_history.variation_name == "General" %>
+        <td><%= "Created field: #{field_history.variation_name}" %></td>
+      <% else %> <!-- Тут возможно понадобится логика поиска и раграничения в новых именах -->
+        <td><%= field_history.variation_name %></td>
+      <%end %>
 
-<p>
-  <strong>Verstion:</strong>
-  <%= @field_history.verstion %>
-</p>
+        <!--  Сравнить надо только вариации, дописать-->
+      <% if field_history.version != 1 && field_history.variation_name !~ /Create new variation:/ && field_history.description != (old_desc = @field_history.retailer.field_histories.where(field_id: @field_history.field_id).select {|el| el.version == field_history.version - 1}.first.description) %>
+        <td style="color: #009966"><%= field_history.description %><s style="color: #990033"><%= old_desc %></s></td>
+      <% else %>
+        <td><%= field_history.description %></td>
+      <% end %>
 
-<%= link_to 'Edit', edit_field_history_path(@field_history) %> |
-<%= link_to 'Back', field_histories_path %>
+      <% if field_history.version != 1 && field_history.vocabulary_name != (old_vocabulary_name = @field_history.retailer.field_histories.where(field_id: @field_history.field_id).select {|el| el.version == field_history.version - 1}.first.vocabulary_name) %>
+        <td style="color: #009966"><%= field_history.vocabulary_name %><s style="color: #990033"><%= old_vocabulary_name %></s></td>
+      <% else %>
+        <td><%= field_history.vocabulary_name %></td>
+      <% end %>
+
+      <td><%= (index == 0 || field_history.variation_name =~ /Create new variation:/) ? "Current content" : (link_to 'Restore history content', retailer_field_history_path(field_history), method: :put, data: { confirm: 'Are you sure?' }) %></td>
+      <td><%= field_history.user.email  %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Back', retailer_field_histories_path(@field_history.retailer_id) %>

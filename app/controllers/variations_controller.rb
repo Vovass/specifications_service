@@ -22,8 +22,9 @@ class VariationsController < ApplicationController
 
   # POST /variations or /variations.json
   def create
-    @variation = @field.variations.new(variation_params)
+    @variation = @field.variations.new(variation_params.merge(user_id: current_user.id))
     if @variation.save
+      FieldHistory.new(variation_history_params).save!
       redirect_to @field.retailer
     else
       render :new
@@ -34,6 +35,7 @@ class VariationsController < ApplicationController
   def update
     respond_to do |format|
       if @variation.update(variation_params)
+        FieldHistory.new(variation_history_params(_update: true)).save!
         format.html { redirect_to @variation.field.retailer, :"data-turbolinks" => "false", notice: "Variation was successfully updated." }
         format.json { render :show, status: :ok, location: @variation.field.retailer }
       else
@@ -45,6 +47,7 @@ class VariationsController < ApplicationController
 
   # DELETE /variations/1 or /variations/1.json
   def destroy
+    FieldHistory.new(variation_history_params(_destroy: @variation.name)).save!
     @variation.destroy
     respond_to do |format|
       format.html { redirect_to @variation.field.retailer, notice: "Variation was successfully destroyed." }
@@ -58,9 +61,41 @@ class VariationsController < ApplicationController
       @variation = Variation.find(params[:id])
     end
 
-  def set_field
-    @field = Field.find(params[:field_id])
-  end
+    def set_field
+      @field = Field.find(params[:field_id])
+    end
+
+    def variation_history_params(_destroy: false, _update: false)
+      return {
+        field_id: @variation[:field_id],
+        retailer_id: @variation.field.retailer_id,
+        fields_title: "Variation #{_destroy} - destroyed",
+        variation_name: "Variation #{_destroy} - destroyed",
+        description: "Variation #{_destroy} - destroyed",
+        vocabulary_name: "Variation #{_destroy} - destroyed",
+        user_id: current_user.id
+      } if _destroy
+
+      return {
+        field_id: @variation[:field_id],
+        retailer_id: @variation.field.retailer_id,
+        fields_title: @variation.field.title,
+        variation_name: @variation.name,
+        description: @variation.description,
+        vocabulary_name: @variation.field.vocabulary.name,
+        user_id: current_user.id
+      } if _update
+
+      {
+        field_id: @variation[:field_id],
+        retailer_id: @variation.field.retailer_id,
+        fields_title: @variation.field.title,
+        variation_name: "Create new variation: #{@variation.name}",
+        description: @variation.description,
+        vocabulary_name: @variation.field.vocabulary.name,
+        user_id: current_user.id
+      }
+    end
 
     # Only allow a list of trusted parameters through.
     def variation_params

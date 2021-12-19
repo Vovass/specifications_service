@@ -1,6 +1,10 @@
 class FieldHistory < ApplicationRecord
 
+  has_rich_text :description
+
   belongs_to :field
+  belongs_to :retailer
+  belongs_to :user
 
   before_create :tag_version_number
 

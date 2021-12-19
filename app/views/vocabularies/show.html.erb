@@ -15,10 +15,10 @@
   <%= @vocabulary.spec_name %>
 </p>
 
-<!--<p>-->
-<!--  <strong>User:</strong>-->
-  <%#= @vocabulary.user.email %>
-<!--</p>-->
+<p>
+  <strong>User:</strong>
+  <%= @vocabulary.user.nil? ? "" : @vocabulary.user.email %>
+</p>
 
 <%= link_to 'Edit', edit_vocabulary_path(@vocabulary) %> |
 <%= link_to 'Back', vocabularies_path %>

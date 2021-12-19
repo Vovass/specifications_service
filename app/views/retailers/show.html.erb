@@ -3,6 +3,8 @@
   <%= @retailer.title %>
 </p>
 
+<%= link_to 'Fields History', retailer_field_histories_path(@retailer) %>
+
 <div class="row">
   <div class="col-sm-2">
     <%= Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}.empty? ? (link_to "New Vocabulary word", new_vocabulary_path, class: "btn btn-primary") : (link_to "Add new field", new_retailer_field_path(@retailer), class: "btn btn-primary") %>
@@ -17,7 +19,7 @@
     <div class="col-sm-2">Name</div>
     <div class="col-sm-6">Description</div>
     <div class="col-sm-2">Vocabulary name</div>
-    <div class="col-sm-2">4</div>
+    <div class="col-sm-2">Remove? ИЛИ  только DA инженер cоздает задачи</div>
   </div>
 
   <% @retailer.fields.each_with_index do |r_field, index| %>
@@ -35,7 +37,7 @@
           <% r_field.variations.each_with_index do |var, r_index| %>
             <div class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>" ><%= var.description %></div>
             <% if r_field.variations.size != 1 %>
-              <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Remove variation', var, method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %></span>
+              <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Remove variation', var, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></span>
             <% end %>
             <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Edit variation', edit_variation_path(var), class: "btn btn-secondary" %></span>
             <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to "Add Variation", new_field_variation_path(r_field), class: "btn btn-secondary" %></span>
@@ -43,7 +45,12 @@
         </div>
       </div>
       <div class="col-sm-2"><%= r_field.vocabulary.name%></div>
-      <div class="col-sm-2"><%= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?'} %></div>
+
+        <!--  Разделение на QA и DA-->
+<!--      <div class="col-sm-2"><%#= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?'} %></div>-->
+      <div class="col-sm-2"><%= link_to 'Запросить задачу', controller: "tickets", method: :get, action: :new, data: { confirm: 'Создать задачу?'}, params: {field_id: r_field.id} %></div>
+<!--      <div class="col-sm-2"><%#= link_to 'Запросить задачу', ticket_path(:field_id => r_field.id) %></div>-->
+
     </div>
   <% end %>
 <% else %>

@@ -36,6 +36,11 @@
   <p style="color: #B00100">Миша, надо ли тут кнопка добавить новый вокабулар который мы отом выберем, или мы в этот момент должны завести задачу на вакабулар ?</p>
 
   <div class="field">
+    <%= f.label :tickets, "Create ticket for DQ?" %>
+    <%= f.check_box :tickets %>
+  </div>
+
+  <div class="field">
     <%= f.submit "#{@field.new_record? ? 'Create' : 'Update' }"%><br>
   </div>
 <% end %>

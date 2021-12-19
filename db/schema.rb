@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_28_141809) do
+ActiveRecord::Schema.define(version: 2021_12_19_185929) do
 
   create_table "action_text_rich_texts", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -69,7 +69,11 @@ ActiveRecord::Schema.define(version: 2021_11_28_141809) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "field_id"
+    t.bigint "user_id"
+    t.bigint "retailer_id"
     t.index ["field_id"], name: "index_field_histories_on_field_id"
+    t.index ["retailer_id"], name: "index_field_histories_on_retailer_id"
+    t.index ["user_id"], name: "index_field_histories_on_user_id"
   end
 
   create_table "fields", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
@@ -104,6 +108,8 @@ ActiveRecord::Schema.define(version: 2021_11_28_141809) do
     t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
   create_table "users", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
@@ -152,6 +158,8 @@ ActiveRecord::Schema.define(version: 2021_11_28_141809) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "vocabulary_id"
     t.integer "version"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_vocabulary_histories_on_user_id"
     t.index ["vocabulary_id"], name: "index_vocabulary_histories_on_vocabulary_id"
   end
 

@@ -2,12 +2,14 @@ Rails.application.routes.draw do
   devise_for :users
 
   get "/users", to: "users#index"
+  # get "/field_histories", to: "field_histories#index"
 
   resources :tickets
-  resources :field_histories
   resources :vocabulary_histories
+
   resources :vocabularies
   resources :retailers do
+    resources :field_histories
     resources :fields, shallow: true do
       resources :variations, shallow: true
     end#, shallow: true # частичная вложенность только для index create new
