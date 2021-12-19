@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_12_145044) do
+ActiveRecord::Schema.define(version: 2021_12_19_154404) do
 
   create_table "action_text_rich_texts", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -108,6 +108,8 @@ ActiveRecord::Schema.define(version: 2021_12_12_145044) do
     t.string "link"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_tickets_on_user_id"
   end
 
   create_table "users", charset: "utf8mb3", collation: "utf8_unicode_ci", force: :cascade do |t|

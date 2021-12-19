@@ -5,6 +5,19 @@ body {
   padding: 20px
 }
 
+.account {
+  margin-left: 10px;
+  margin-right: 10px;
+  text-align: right;
+} 
+
+.form-inline {
+  display: inherit;
+}
+.form-inline.search {
+  margin: 0 0 0 auto
+}
+
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;

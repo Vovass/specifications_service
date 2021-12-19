@@ -12,7 +12,22 @@ class TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
+    field_id = params.dig(:field_id)
+    if field_id
+      @ticket = Ticket.new({name: "QA", description: "Заполнить спецификацию для текущего поля т.к. данные на сайте устарели", field_ids: field_id.to_i, user_id: current_user.id})
+      respond_to do |format|
+        if @ticket.save
+          retailer = Field.find(field_id).retailer
+          format.html { redirect_to retailer, notice: "Ticket was successfully created." }
+          format.json { render :show, status: :created, location: retailer }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @ticket.errors, status: :unprocessable_entity }
+        end
+      end
+    else
+      @ticket = Ticket.new
+    end
   end
 
   # GET /tickets/1/edit
@@ -21,7 +36,7 @@ class TicketsController < ApplicationController
 
   # POST /tickets or /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
+    @ticket = Ticket.new(ticket_params.merge(user_id: current_user.id))
 
     respond_to do |format|
       if @ticket.save

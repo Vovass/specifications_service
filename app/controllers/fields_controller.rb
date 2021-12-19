@@ -18,8 +18,12 @@ class FieldsController < ApplicationController
 
   # POST /fields or /fields.json
   def create
-    @field = @retailer.fields.new(field_params.merge(user_id: current_user.id))
-      if @field.save
+    if params.dig(:field, :tickets).to_i == 1
+      @ticket = Ticket.new(name: "DA", user_id: current_user.id)
+      @ticket.save
+    end
+    @field = @retailer.fields.new(field_params.merge(user_id: current_user.id, ticket_ids: @ticket.id))
+    if @field.save
         if @field.variations.new({name: "General", description: nil }.merge(user_id: current_user.id)).save
           FieldHistory.new(field_history_params).save!
         end
@@ -30,7 +34,7 @@ class FieldsController < ApplicationController
   end
 
   # PATCH/PUT /fields/1 or /fields/1.json
-  def update # подумать
+  def update
     respond_to do |format|
       if @field.update(field_params)
         FieldHistory.new(field_history_params(_update: true)).save!

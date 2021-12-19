@@ -10,6 +10,39 @@
 <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>-->
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <!--    <a class="navbar-brand" href="#">Navbar</a>-->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/retailers">Retailers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/vocabularies">Vocabularies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/tickets">Tickets</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 search">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <span class="account">
+          <% if user_signed_in? %>
+            <p>Account: <%= current_user.email %></p>
+            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+          <% else %>
+            <%= link_to "Sign in", new_user_session_path%>
+          <% end %>
+        </span>
+
+
+      </div>
+    </nav>
   </head>
 
   <body>
@@ -17,12 +50,7 @@
   <p id="notice" class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>
 
-  <% if user_signed_in? %>
-    <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-    <p>Account: <%= current_user.email %></p>
-  <% else %>
-    <%= link_to "Sign in", new_user_session_path%>
-  <% end %>
+
 
     <%= yield %>
   </body>
