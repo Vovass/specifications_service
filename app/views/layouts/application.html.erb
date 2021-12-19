@@ -26,21 +26,26 @@
           <li class="nav-item">
             <a class="nav-link" href="/tickets">Tickets</a>
           </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0 search">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <span class="account">
-          <% if user_signed_in? %>
-            <p>Account: <%= current_user.email %></p>
-            <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-          <% else %>
-            <%= link_to "Sign in", new_user_session_path%>
+          <% if current_user && current_user.role.eql?("admin") %>
+            <li class="nav-item">
+              <a class="nav-link" href="/users">Users</a>
+            </li>
           <% end %>
-        </span>
-
-
+        </ul>
+        <div class="right_block">
+          <%= form_tag retailers_path, :method => 'get', class: 'form-inline my-2 my-lg-0 search' do %>
+            <%= text_field_tag :search, params[:search], class: 'form-control mr-sm-2' %>
+            <%= submit_tag "Search", :name => nil, class: 'btn btn-outline-success my-2 my-sm-0' %>
+          <% end if current_page? '/retailers'%>
+          <span class="account">
+            <% if user_signed_in? %>
+              <p>Account: <%= current_user.email %></p>
+                <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+            <% else %>
+              <%= link_to "Sign in", new_user_session_path%>
+            <% end %>
+          </span>
+        </div>
       </div>
     </nav>
   </head>

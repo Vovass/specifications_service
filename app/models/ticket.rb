@@ -1,4 +1,6 @@
 class Ticket < ApplicationRecord
+  paginates_per 30
+
   validates :name, presence: true, uniqueness: true
   validates :link, format: { with: /\A(https:\/\/space.profitero.com).+/, message: "only Profitero space" }
   has_rich_text :description

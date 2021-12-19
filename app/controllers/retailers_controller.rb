@@ -4,7 +4,7 @@ class RetailersController < ApplicationController
 
   # GET /retailers or /retailers.json
   def index
-    @retailers = Retailer.all
+    @retailers = params[:search].nil? ? Retailer.all.page(params[:page]) : Retailer.search(params[:search])
   end
 
   # GET /retailers/1 or /retailers/1.json

@@ -9,13 +9,19 @@ body {
   margin-left: 10px;
   margin-right: 10px;
   text-align: right;
-} 
+}
+
+.account p {
+  margin-bottom: 0;
+}
 
 .form-inline {
   display: inherit;
 }
-.form-inline.search {
-  margin: 0 0 0 auto
+
+.right_block {
+  display: inherit;
+  margin: 0 0 0 auto;
 }
 
 body, p, ol, ul, td {
@@ -79,3 +85,8 @@ div.actions {
 
 label {
   display: block; }
+
+
+nav.pagination span{
+  margin-right: 3px;
+}
