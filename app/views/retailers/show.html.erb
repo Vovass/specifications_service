@@ -49,7 +49,6 @@
         <!--  Разделение на QA и DA-->
 <!--      <div class="col-sm-2"><%#= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?'} %></div>-->
       <div class="col-sm-2"><%= link_to 'Запросить задачу', controller: "tickets", method: :get, action: :new, data: { confirm: 'Создать задачу?'}, params: {field_id: r_field.id} %></div>
-<!--      <div class="col-sm-2"><%#= link_to 'Запросить задачу', ticket_path(:field_id => r_field.id) %></div>-->
 
     </div>
   <% end %>

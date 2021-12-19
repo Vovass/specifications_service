@@ -26,6 +26,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/tickets">Tickets</a>
           </li>
+          <% if current_user && current_user.role.eql?("admin") %>
+            <li class="nav-item">
+              <a class="nav-link" href="/users">Users</a>
+            </li>
+          <% end %>
         </ul>
         <form class="form-inline my-2 my-lg-0 search">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

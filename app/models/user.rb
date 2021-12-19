@@ -13,10 +13,16 @@ class User < ApplicationRecord
   has_many :vocabulary_histories
   has_many :tickets
 
+  belongs_to :user_role
   after_create :set_default_role
+  before_update :set_role_name
 
   def set_default_role
     self.update(role: "user")
+  end
+
+  def set_role_name
+    self.role = self.user_role.role
   end
 
 end
