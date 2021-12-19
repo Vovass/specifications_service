@@ -1,4 +1,6 @@
 class VocabularyHistory < ApplicationRecord
+  paginates_per 50
+
   validates :vocabulary, presence: true
 
   has_rich_text :description

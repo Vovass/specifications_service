@@ -4,7 +4,7 @@ class VocabularyHistoriesController < ApplicationController
 
   # GET /vocabulary_histories or /vocabulary_histories.json
   def index
-    @vocabulary_histories = VocabularyHistory.all.order(updated_at: :desc)
+    @vocabulary_histories = VocabularyHistory.all.order(updated_at: :desc).page(params[:page])
   end
 
   # GET /vocabulary_histories/1 or /vocabulary_histories/1.json

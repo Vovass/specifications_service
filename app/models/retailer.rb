@@ -1,4 +1,6 @@
 class Retailer < ApplicationRecord
+  paginates_per 30
+
   validates :title, presence: true, uniqueness: true
 
   belongs_to :user
