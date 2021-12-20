@@ -2,6 +2,7 @@ class FieldsController < ApplicationController
   before_action :set_field, only: %i[ show edit update destroy ]
   before_action :set_retailer, only: %i[ new create ]
   before_action :cur_retailer, only: %i[ new create edit ]
+  before_action :check_role, only: %i[ new show edit ]
 
   # GET /fields/1 or /fields/1.json
   def show
@@ -65,6 +66,10 @@ class FieldsController < ApplicationController
 
   def set_retailer
     @retailer = Retailer.find(params[:retailer_id])
+  end
+
+  def check_role
+    respond_to { |format| format.html { redirect_to @retailer || @field.retailer, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
   end
 
   def cur_retailer

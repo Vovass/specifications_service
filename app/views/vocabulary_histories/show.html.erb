@@ -9,7 +9,7 @@
     <th>Description</th>
     <th>Spec name</th>
     <th>Vocabulary field</th>
-    <th>Restore?</th>
+    <% if ["QA","admin"].include?(current_user.role) %><th>Restore?</th> <% end %>
     <th>Created by</th>
     <th colspan="9"></th>
   </tr>
@@ -40,8 +40,9 @@
 
       <td><%= vocabulary_history.vocabulary.name  %></td>
 
-
-      <td><%= (index == 0) ? "Current content" : (link_to 'Restore history content', vocabulary_history, method: :put, data: { confirm: 'Are you sure?' }) %></td>
+      <% if ["QA","admin"].include?(current_user.role) %>
+        <td><%= (index == 0) ? "Current content" : (link_to 'Restore history content', vocabulary_history, method: :put, data: { confirm: 'Are you sure?' }) %></td>
+      <% end %>
       <td><%= vocabulary_history.user.email  %></td>
     </tr>
   <% end %>

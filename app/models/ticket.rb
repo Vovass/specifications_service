@@ -2,7 +2,7 @@ class Ticket < ApplicationRecord
   paginates_per 30
 
   validates :name, presence: true, uniqueness: true
-  validates :link, format: { with: /\A(https:\/\/space.profitero.com).+/, message: "only Profitero space" }
+  # validates :link, format: { with: /\A(https:\/\/space.profitero.com).+/, message: "only Profitero space" }
   has_rich_text :description
 
   has_many :fields_tickets
@@ -15,7 +15,6 @@ class Ticket < ApplicationRecord
   private
 
   def set_ticket_data
-
     case self.name
     when "DA"
       self.name = "DA-#{Ticket.last.nil? ? 1 : check_last_ticket('DA')}"
@@ -33,6 +32,4 @@ class Ticket < ApplicationRecord
     number + 1
   end
 
-  # Сделать set_link который автоматом генерируем ссылку на профитеро при создании из имени
-  # а имя строго ограничить патерном (\W+)-\d+
 end

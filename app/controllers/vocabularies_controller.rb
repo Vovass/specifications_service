@@ -1,5 +1,6 @@
 class VocabulariesController < ApplicationController
   before_action :set_vocabulary, only: %i[ show edit update destroy ]
+  before_action :check_role, only: %i[ new edit ]
 
   # GET /vocabularies or /vocabularies.json
   def index
@@ -70,21 +71,25 @@ class VocabulariesController < ApplicationController
       params.require(:vocabulary).permit(:name, :description, :spec_name, :vocabulary_id)
     end
 
-  def vocabulary_history_params(_destroy: false)
-    return {
-      vocabulary_id: @vocabulary[:id],
-      name: "Vocabulary field #{_destroy} - destroyed",
-      description: "Vocabulary field #{_destroy} - destroyed",
-      spec_name: "Vocabulary field #{_destroy} - destroyed",
-      user_id: current_user.id
-    } if _destroy
+    def check_role
+      respond_to { |format| format.html { redirect_to vocabularies_path, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+    end
 
-    {
-      vocabulary_id: @vocabulary[:id],
-      name: vocabulary_params[:name],
-      description: vocabulary_params[:description],
-      spec_name: vocabulary_params[:spec_name],
-      user_id: current_user.id
-    }
-  end
+    def vocabulary_history_params(_destroy: false)
+      return {
+        vocabulary_id: @vocabulary[:id],
+        name: "Vocabulary field #{_destroy} - destroyed",
+        description: "Vocabulary field #{_destroy} - destroyed",
+        spec_name: "Vocabulary field #{_destroy} - destroyed",
+        user_id: current_user.id
+      } if _destroy
+
+      {
+        vocabulary_id: @vocabulary[:id],
+        name: vocabulary_params[:name],
+        description: vocabulary_params[:description],
+        spec_name: vocabulary_params[:spec_name],
+        user_id: current_user.id
+      }
+    end
 end

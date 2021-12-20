@@ -20,5 +20,5 @@
   <%= @vocabulary.user.nil? ? "" : @vocabulary.user.email %>
 </p>
 
-<%= link_to 'Edit', edit_vocabulary_path(@vocabulary) %> |
+<%= link_to 'Edit', edit_vocabulary_path(@vocabulary) if ["QA","admin"].include?(current_user.role) %>
 <%= link_to 'Back', vocabularies_path %>

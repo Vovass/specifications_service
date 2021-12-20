@@ -22,8 +22,10 @@
         <td><%= vocabulary.fields.size.blank? ? 0 : vocabulary.fields.size %></td>
         <td><%= vocabulary.user.nil? ? "" : vocabulary.user.email %></td>
         <td><%= link_to 'Show', vocabulary %></td>
-        <td><%= link_to 'Edit', edit_vocabulary_path(vocabulary) %></td>
-        <td><%= link_to 'Destroy', vocabulary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if ["QA","admin"].include?(current_user.role) %>
+          <td><%= link_to 'Edit', edit_vocabulary_path(vocabulary) %></td>
+          <td><%= link_to 'Destroy', vocabulary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -31,4 +33,4 @@
 
 <br>
 
-<%= link_to 'New Vocabulary', new_vocabulary_path %>
+<%= link_to 'New Vocabulary', new_vocabulary_path if ["QA","admin"].include?(current_user.role) %>

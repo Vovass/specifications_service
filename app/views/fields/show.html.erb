@@ -3,31 +3,6 @@
   <%= @field.title %>
 </p>
 
-  <strong><%= (@field.variations.count > 0) ? "Variations:" : "No variations" %></strong>
-
-<ul>
-  <select id="sel">
-  <% @field.variations.each_with_index do |var, index| %>
-      <option id ="sel-<%=index %>" class="sel-<%=index%>"><%= var.name%></option>
-  <% end %>
-  </select>
-  <p style="color: red"> Тут не будет работать отображение из-за нового JS может вырубить эту страницу нафиг?</p>
-  <div class="result_hide_field">
-    <% @field.variations.each_with_index do |var, index| %>
-      <div class="hide hide_result_<%=index%>"><%= var.description %></div>
-      <% if @field.variations.size != 1 %>
-        <span class="hide hide_result_<%=index%>"><%= link_to 'Remove variation', var, method: :delete, data: { confirm: 'Are you sure?' } %></span>
-      <% end %>
-      <span class="hide hide_result_<%=index%>"><%= link_to 'Edit variation', edit_variation_path(var) %></span>
-    <% end %>
-  </div>
-
-</ul>
-
-<p>
-  <%= link_to "Add Variation", new_field_variation_path(@field) %>
-</p>
-
 <p>
   <strong> Vocabulary -  </strong>
   <%= @field.vocabulary.name %>

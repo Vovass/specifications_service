@@ -1,6 +1,7 @@
 class RetailersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_retailer, only: %i[ show edit update destroy ]
+  before_action :check_role, only: %i[ new edit ]
 
   # GET /retailers or /retailers.json
   def index
@@ -63,7 +64,11 @@ class RetailersController < ApplicationController
       @retailer = Retailer.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    def check_role
+      respond_to { |format| format.html { redirect_to retailers_path, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+    end
+
+  # Only allow a list of trusted parameters through.
     def retailer_params
       params.require(:retailer).permit(:title)
     end

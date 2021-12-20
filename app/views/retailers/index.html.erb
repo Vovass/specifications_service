@@ -1,7 +1,6 @@
 <h1>Retailers</h1>
 
 <%= paginate @retailers unless params[:search] %>
-<p style="color: red" >https://trello.com/c/BzcS7Oco/1-field-history</p>
 
 <table>
   <thead>
@@ -16,8 +15,8 @@
       <tr>
         <td><%= retailer.title %></td>
         <td><%= link_to 'Show', retailer, :"data-turbolinks" => "false" %></td>
-        <td><%= link_to 'Edit', edit_retailer_path(retailer) %></td>
-        <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_retailer_path(retailer) if ["QA","admin"].include? current_user.role %></td>
+        <td><%= link_to 'Destroy', retailer, method: :delete, data: { confirm: 'Are you sure?' } if current_user.role.eql? "admin" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Retailer', new_retailer_path %>
+<%= link_to 'New Retailer', new_retailer_path if ["QA","admin"].include? current_user.role %>

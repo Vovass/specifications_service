@@ -1,9 +1,10 @@
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[ show edit update destroy ]
+  before_action :check_role, only: %i[ edit ]
 
   # GET /tickets or /tickets.json
   def index
-    @tickets = Ticket.all.page(params[:page])
+    @tickets = Ticket.all.order(updated_at: :desc).page(params[:page])
   end
 
   # GET /tickets/1 or /tickets/1.json
@@ -76,6 +77,10 @@ class TicketsController < ApplicationController
     def set_ticket
       @ticket = Ticket.find(params[:id])
     end
+
+  def check_role
+    respond_to { |format| format.html { redirect_to tickets_path, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+  end
 
     # Only allow a list of trusted parameters through.
     def ticket_params

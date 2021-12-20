@@ -13,5 +13,5 @@
   <%= @ticket.link %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Edit', edit_ticket_path(@ticket) if ["QA","admin"].include?(current_user.role) %>
 <%= link_to 'Back', tickets_path %>
