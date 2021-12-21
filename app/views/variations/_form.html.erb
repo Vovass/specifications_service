@@ -1,7 +1,7 @@
 <%= form_for [@field, @variation] do |f| %>
   <% if @variation.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@variation.errors.count, "error") %> prohibited this field from being saved:</h2>
+      <h2><%= pluralize(@variation.errors.count, "ошибка") %> препятствует сохранению:</h2>
 
       <ul>
         <% @variation.errors.each do |error| %>
@@ -12,17 +12,17 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %><br>
+    <%= f.label :name, "Название" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.rich_text_area :description %><br>
+    <%= f.label :description, "Описание" %>
+    <%= f.rich_text_area :description %>
   </div>
 
   <div class="field">
-    <%= f.submit "#{@variation.new_record? ? 'Create' : 'Update' }"%><br>
+    <%= f.submit "#{@variation.new_record? ? 'Создать' : 'Обновить' }", class: "btn btn-primary"%>
   </div>
 <% end %>
 

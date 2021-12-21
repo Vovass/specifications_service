@@ -1,17 +1,24 @@
-<%= link_to "Retailer #{@field_history.retailer.title}", retailer_path(@field_history.retailer_id) %>
-<%= link_to "Field #{@field_history.fields_title}", field_path(@field_history.field_id) %>
+<span class="elem_with_icon">
+  <i class="material-icons">article</i>
+  <%= link_to "Ретейлер #{@field_history.retailer.title}", retailer_path(@field_history.retailer_id) %>
+</span>
+<span class="elem_with_icon">
+  <i class="material-icons">bookmark</i>
+  <%= link_to "Поле #{@field_history.fields_title}", field_path(@field_history.field_id) %>
+</span>
+
 
 <table>
   <thead>
   <tr>
-    <th>Version </th>
-    <th>Date </th>
-    <th>Fields title</th>
-    <th>Variation name</th>
-    <th>Description</th>
-    <th>Vocabulary name</th>
-    <th>Restore?</th>
-    <th>Created by</th>
+    <th>Версия </th>
+    <th>Дата </th>
+    <th>Имя поля</th>
+    <th>Вариация</th>
+    <th>Описание</th>
+    <th>Вокабуляр</th>
+    <th>Востановить ?</th>
+    <th>Создано</th>
     <th colspan="9"></th>
   </tr>
   </thead>
@@ -46,11 +53,11 @@
         <td><%= field_history.vocabulary_name %></td>
       <% end %>
 
-      <td><%= (index == 0 || field_history.variation_name =~ /Create new variation:/) ? "Current content" : (link_to 'Restore history content', retailer_field_history_path(field_history), method: :put, data: { confirm: 'Are you sure?' }) %></td>
+      <td><%= (index == 0 || field_history.variation_name =~ /Create new variation:/) ? "Текущий контент" : (link_to 'Востановить контент', retailer_field_history_path(field_history), method: :put, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger") %></td>
       <td><%= field_history.user.email  %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Back', retailer_field_histories_path(@field_history.retailer_id) %>
+<%= link_to 'Назад', retailer_field_histories_path(@field_history.retailer_id), class: "btn btn-secondary" %>

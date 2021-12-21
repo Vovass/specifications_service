@@ -14,9 +14,9 @@
       <tr>
         <td><%= variation.name %></td>
         <td><%= variation.description %></td>
-        <td><%= link_to 'Show', variation %></td>
-        <td><%= link_to 'Edit', edit_variation_path(variation) %></td>
-        <td><%= link_to 'Destroy', variation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Показать', variation, class: "btn btn-secondary" %></td>
+        <td><%= link_to 'Изменить', edit_variation_path(variation), class: "btn btn-secondary" %></td>
+        <td><%= link_to 'Удалить', variation, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

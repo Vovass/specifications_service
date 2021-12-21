@@ -1,5 +1,7 @@
-<h1>Editing Variation</h1>
+<div class="container">
+  <h1>Редактирование вариации</h1>
 
-<%= render 'form', variation: @variation %>
+  <%= render 'form', variation: @variation %>
 
-<%= link_to 'Back', retailer_path(@variation.field.retailer), :"data-turbolinks" => "false" %>
+  <%= link_to 'Назад', retailer_path(@variation.field.retailer), :"data-turbolinks" => "false", class: "btn btn-secondary" %>
+</div>

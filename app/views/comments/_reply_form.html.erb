@@ -3,11 +3,11 @@
     <%= form_with(model: [@retailer, @comment]) do |f| %>
       <%= f.hidden_field :parent_id %>
       <div class="form-group">
-        <%= f.label 'Reply' %>
-        <%= f.text_area :body, class: 'form-control' %>
+        <%= f.label 'Ответ' %>
+        <%= f.text_area :body, class: 'form-control', required: "required" %>
       </div>
-      <%= f.submit 'Submit', class: 'btn btn-primary' %>
-      <%= link_to 'Cancel', retailer_path(@retailer), class: 'btn btn-secondary' %>
+      <%= f.submit 'Отправить', class: 'btn btn-primary' %>
+      <%= link_to 'Отмена', retailer_path(@retailer), class: 'btn btn-secondary' %>
     <% end %>
   </div>
 </div>

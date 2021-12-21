@@ -1,7 +1,7 @@
 <%= form_for [@retailer, @field] do |f| %>
   <% if @field.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@field.errors.count, "error") %> prohibited this field from being saved:</h2>
+      <h2><%= pluralize(@field.errors.count, "ошибка") %> препятствует сохранению:</h2>
 
       <ul>
         <% @field.errors.each do |error| %>
@@ -10,37 +10,19 @@
       </ul>
     </div>
   <% end %>
-
   <div class="field">
-    <%= f.label :title %><br>
-    <p style="color: #B00100">В данный момент поле <strong>Title</strong> можно скрыть, я думаю где нибудь
-      да понадобится кастомные имена отличающиеся от спецификации, по этому оставил,
-      но скрыв это поле можно добиться того же результата, поле будет заполнено автоматически по Spec Name из вакабуляра
-    </p>
-    <%= f.text_field :title, class: "hide" %><br>
-  </div>
-
-  <div class="field hide">
-    <%= f.label :description %><br>
-    <p style="color: #B00100">А вот тут похоже надо создавать вариацию General или задовать её кастомное название,
-      но без создания поля Field это сделать нельзя, можно поставить создавать поле автоматом,
-      а это содержимое просто скопировать в него на первое время
-    </p>
-    <%= f.rich_text_area :description %><br>
+    <%= f.label :vocabulary , "Вокабуляр"%>
+    <div class="select_search_raw">
+      <%= f.collection_select :vocabulary_id, Vocabulary.all.select {|el| el unless @cur_retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}, :id, :name, {}, {class: "sel_desc"} %>
+    </div>
   </div>
 
   <div class="field">
-    <%= f.label :vocabulary , "Vocabulary"%>
-    <%= f.collection_select :vocabulary_id, Vocabulary.all.select {|el| el unless @cur_retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}, :id, :name %>
-  </div>
-  <p style="color: #B00100">Миша, надо ли тут кнопка добавить новый вокабулар который мы отом выберем, или мы в этот момент должны завести задачу на вакабулар ?</p>
-
-  <div class="field">
-    <%= f.label :tickets, "Create ticket for DQ?" %>
+    <%= f.label :tickets, "Создать задачу на DQ?" %>
     <%= f.check_box :tickets %>
   </div>
 
   <div class="field">
-    <%= f.submit "#{@field.new_record? ? 'Create' : 'Update' }"%><br>
+    <%= f.submit "#{@field.new_record? ? 'Создать' : 'Обновить' }", class: "btn btn-primary"%><br>
   </div>
 <% end %>

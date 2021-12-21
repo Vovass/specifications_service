@@ -1,41 +1,33 @@
-<h1>Tickets</h1>
+<h1>Задачи</h1>
 
 <%= paginate @tickets %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Link</th>
-      <th>Retailer</th>
-      <th>Field</th>
-      <th>Created at</th>
-      <th>Created by</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <div class="row caption content">
+    <div class="col-sm-1">Название</div>
+    <div class="col-sm-3">Описание</div>
+    <div class="col-sm-3">Адресс</div>
+    <div class="col-sm-1">Ретейлер</div>
+    <div class="col-sm-1">Поле</div>
+    <div class="col-sm-1">Дата создание</div>
+    <div class="col-sm-1">Пользователь</div>
+    <div class="col-sm-1">Действие</div>
+  </div>
     <% @tickets.each do |ticket| %>
-      <tr>
-        <td><%= ticket.name %></td>
-        <td><%= ticket.description %></td>
-        <td><%= ticket.link %></td>
-        <td><%= ticket.fields.first.nil? ? "" : ticket.fields.first.retailer.title %></td>
-        <td><%= ticket.fields.first.nil? ? "" : ticket.fields.first.title %></td>
-        <td><%= ticket.created_at %></td>
-        <td><%= ticket.user.nil? ? "" : ticket.user.email %></td>
-        <td><%= link_to 'Show', ticket %></td>
-        <% if ["QA","admin"].include?(current_user.role) %>
-          <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-          <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+      <div class="row caption content">
+        <div class="col-sm-1"><%= ticket.name %></div>
+        <div class="col-sm-3"><%= ticket.description %></div>
+        <div class="col-sm-3"><%= ticket.link %></div>
+        <div class="col-sm-1"><%= (ticket&.fields.first.nil? ? "" : ticket.fields&.first&.retailer&.title) rescue "error" %></div>
+        <div class="col-sm-1"><%= (ticket&.fields.first.nil? ? "" : ticket.fields&.first&.title) rescue "error" %></div>
+        <div class="col-sm-1"><%= ticket.created_at %></div>
+        <div class="col-sm-1"><%= ticket.user.nil? ? "" : ticket.user.email %></div>
+        <div class="col-sm-1">
+          <%= link_to 'Показать', ticket, class: "btn btn-secondary" %>
+          <%= link_to 'Изменить', edit_ticket_path(ticket), class: "btn btn-secondary" %>
+          <%= link_to 'Удалить', ticket, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger" %>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
-<br>
 
-<%= link_to 'New Ticket', new_ticket_path if ["QA","admin"].include?(current_user.role) %>
+<%= link_to 'Новая задача', new_ticket_path, class: "btn btn-primary" if ["QA","admin"].include?(current_user.role) %>

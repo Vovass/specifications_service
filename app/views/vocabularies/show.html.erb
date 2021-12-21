@@ -1,24 +1,28 @@
-<%= link_to 'field history', vocabulary_history_path(@vocabulary.vocabulary_histories.first) %>
+<div class="container">
+  <span class="elem_with_icon">
+  <i class="material-icons">book</i>
+    <%= link_to 'field history', vocabulary_history_path(@vocabulary.vocabulary_histories.first) %>
+  </span>
+  <p>
+    <strong>Название:</strong>
+    <%= @vocabulary.name %>
+  </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @vocabulary.name %>
-</p>
+  <p>
+    <strong>Описание:</strong>
+    <%= @vocabulary.description %>
+  </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @vocabulary.description %>
-</p>
+  <p>
+    <strong>Комерческое название:</strong>
+    <%= @vocabulary.spec_name %>
+  </p>
 
-<p>
-  <strong>Spec name:</strong>
-  <%= @vocabulary.spec_name %>
-</p>
+  <p>
+    <strong>Пользователь:</strong>
+    <%= @vocabulary.user.nil? ? "" : @vocabulary.user.email %>
+  </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @vocabulary.user.nil? ? "" : @vocabulary.user.email %>
-</p>
-
-<%= link_to 'Edit', edit_vocabulary_path(@vocabulary) if ["QA","admin"].include?(current_user.role) %>
-<%= link_to 'Back', vocabularies_path %>
+  <%= link_to 'Изменить', edit_vocabulary_path(@vocabulary), class: "btn btn-secondary" if ["QA","admin"].include?(current_user.role) %>
+  <%= link_to 'Назад', vocabularies_path, class: "btn btn-secondary" %>
+</div>

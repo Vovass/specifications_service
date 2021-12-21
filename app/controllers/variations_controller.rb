@@ -1,4 +1,5 @@
 class VariationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_variation, only: %i[ show edit update destroy ]
   before_action :set_field, only: %i[ new create ]
   before_action :check_role, only: %i[ new show edit ]
@@ -37,7 +38,7 @@ class VariationsController < ApplicationController
     respond_to do |format|
       if @variation.update(variation_params)
         FieldHistory.new(variation_history_params(_update: true)).save!
-        format.html { redirect_to @variation.field.retailer, :"data-turbolinks" => "false", notice: "Variation was successfully updated." }
+        format.html { redirect_to @variation.field.retailer, :"data-turbolinks" => "false", notice: "Вариация была успешно обновлена." }
         format.json { render :show, status: :ok, location: @variation.field.retailer }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,7 +52,7 @@ class VariationsController < ApplicationController
     FieldHistory.new(variation_history_params(_destroy: @variation.name)).save!
     @variation.destroy
     respond_to do |format|
-      format.html { redirect_to @variation.field.retailer, notice: "Variation was successfully destroyed." }
+      format.html { redirect_to @variation.field.retailer, notice: "Вариация была успешна удалена." }
       format.json { head :no_content }
     end
   end
@@ -67,18 +68,17 @@ class VariationsController < ApplicationController
     end
 
     def check_role
-      respond_to { |format| format.html { redirect_to @field&.retailer || @variation.field.retailer, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+      respond_to { |format| format.html { redirect_to @field&.retailer || @variation.field.retailer, alert: "У вас нету доступа к просмотру содержимого этой страницы" } } unless ["QA","admin"].include? current_user.role
     end
-
 
     def variation_history_params(_destroy: false, _update: false)
         return {
           field_id: @variation[:field_id],
           retailer_id: @variation.field.retailer_id,
-          fields_title: "Variation #{_destroy} - destroyed",
-          variation_name: "Variation #{_destroy} - destroyed",
-          description: "Variation #{_destroy} - destroyed",
-          vocabulary_name: "Variation #{_destroy} - destroyed",
+          fields_title: @variation&.field.title,
+          variation_name: "Вариация #{_destroy} - удалена",
+          description: "Вариация #{_destroy} - удалена",
+          vocabulary_name: "Вариация #{_destroy} - удалена",
           user_id: current_user.id
         } if _destroy
 
@@ -96,7 +96,7 @@ class VariationsController < ApplicationController
           field_id: @variation[:field_id],
           retailer_id: @variation.field.retailer_id,
           fields_title: @variation.field.title,
-          variation_name: "Create new variation: #{@variation.name}",
+          variation_name: "Создана новая вариация: #{@variation.name}",
           description: @variation.description,
           vocabulary_name: @variation.field.vocabulary.name,
           user_id: current_user.id

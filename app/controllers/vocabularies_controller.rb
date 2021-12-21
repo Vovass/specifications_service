@@ -1,4 +1,5 @@
 class VocabulariesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_vocabulary, only: %i[ show edit update destroy ]
   before_action :check_role, only: %i[ new edit ]
 
@@ -27,7 +28,7 @@ class VocabulariesController < ApplicationController
     respond_to do |format|
       if @vocabulary.save
         VocabularyHistory.new(vocabulary_history_params).save!
-        format.html { redirect_to @vocabulary, notice: "Vocabulary was successfully created." }
+        format.html { redirect_to @vocabulary, notice: "Поле вокабуляра было успешно создано." }
         format.json { render :show, status: :created, location: @vocabulary }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +42,7 @@ class VocabulariesController < ApplicationController
     respond_to do |format|
       if @vocabulary.update(vocabulary_params)
         VocabularyHistory.new(vocabulary_history_params).save!
-        format.html { redirect_to @vocabulary, notice: "Vocabulary was successfully updated." }
+        format.html { redirect_to @vocabulary, notice: "Поле вокабуляра было успешно обновлено." }
         format.json { render :show, status: :ok, location: @vocabulary }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +56,7 @@ class VocabulariesController < ApplicationController
     VocabularyHistory.new(vocabulary_history_params(_destroy: @vocabulary.name)).save!
     @vocabulary.destroy
     respond_to do |format|
-      format.html { redirect_to vocabularies_url, notice: "Vocabulary was successfully destroyed." }
+      format.html { redirect_to vocabularies_url, notice: "Поле вокабуляра было успешно удалено." }
       format.json { head :no_content }
     end
   end
@@ -72,15 +73,15 @@ class VocabulariesController < ApplicationController
     end
 
     def check_role
-      respond_to { |format| format.html { redirect_to vocabularies_path, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+      respond_to { |format| format.html { redirect_to vocabularies_path, alert: "У вас нету доступа к просмотру содержимого этой страницы" } } unless ["QA","admin"].include? current_user.role
     end
 
     def vocabulary_history_params(_destroy: false)
       return {
         vocabulary_id: @vocabulary[:id],
-        name: "Vocabulary field #{_destroy} - destroyed",
-        description: "Vocabulary field #{_destroy} - destroyed",
-        spec_name: "Vocabulary field #{_destroy} - destroyed",
+        name: "Поле вокабуляра #{_destroy} - удалено",
+        description: "Поле вокабуляра #{_destroy} - удалено",
+        spec_name: "Поле вокабуляра #{_destroy} - удалено",
         user_id: current_user.id
       } if _destroy
 

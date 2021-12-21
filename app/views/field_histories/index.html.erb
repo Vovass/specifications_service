@@ -1,18 +1,21 @@
-<%= link_to 'Retailers', @retailer %>
+<span class="elem_with_icon">
+  <i class="material-icons">article</i>
+  <%= link_to 'Ретейлеры', @retailer %></br>
+</span>
 
-<h1>Field Histories</h1>
+<h1>История изменения полей</h1>
 
 <table>
   <thead>
     <tr>
-      <th>Date</th>
-      <th>Retailer</th>
-      <th>Fields title</th>
-      <th>Variation name</th>
-      <th>Description</th>
-      <th>Vocabulary name</th>
-      <th>User</th>
-      <th>Version</th>
+      <th>Дата</th>
+      <th>Ретейлер</th>
+      <th>Наименование поля</th>
+      <th>Вариация</th>
+      <th>Описание</th>
+      <th>Вокабуляр</th>
+      <th>Пользователь</th>
+      <th>Версия</th>
       <th colspan="6"></th>
     </tr>
   </thead>
@@ -28,7 +31,7 @@
         <td><%= field_history.vocabulary_name %></td>
         <td><%= field_history.user.email %></td>
         <td><%= field_history.version %></td>
-        <td><%= field_history.field.nil? ? "" : (link_to 'Show', retailer_field_history_path(@retailer.id, field_history.id)) %></td>
+        <td><%= field_history.field.nil? ? "" : (link_to 'Показать', retailer_field_history_path(@retailer.id, field_history.id), class: "btn btn-secondary") %></td>
       </tr>
     <% end %>
   </tbody>

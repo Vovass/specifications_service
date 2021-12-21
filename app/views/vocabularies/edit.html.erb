@@ -1,6 +1,8 @@
-<h1>Editing Vocabulary</h1>
+<div class="container">
+  <h1>Изменение поля вокабуляра</h1>
 
-<%= render 'form', vocabulary: @vocabulary %>
+  <%= render 'form', vocabulary: @vocabulary %>
 
-<%= link_to 'Show', @vocabulary %> |
-<%= link_to 'Back', vocabularies_path %>
+  <%= link_to 'Показать', @vocabulary, class: "btn btn-secondary" %> |
+  <%= link_to 'Назад', vocabularies_path, class: "btn btn-secondary" %>
+</div>

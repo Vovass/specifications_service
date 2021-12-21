@@ -1,6 +1,7 @@
 class Field < ApplicationRecord
   validates :title, presence: true
   validates :vocabulary_id, uniqueness: { scope: :retailer_id }
+
   has_rich_text :description
 
   belongs_to :retailer

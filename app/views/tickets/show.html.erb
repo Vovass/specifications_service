@@ -1,17 +1,19 @@
+<div class="container">
 <p>
-  <strong>Name:</strong>
+  <strong>Название:</strong>
   <%= @ticket.name %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Описание:</strong>
   <%= @ticket.description %>
 </p>
 
 <p>
-  <strong>Link:</strong>
+  <strong>Адрес:</strong>
   <%= @ticket.link %>
 </p>
 
-<%= link_to 'Edit', edit_ticket_path(@ticket) if ["QA","admin"].include?(current_user.role) %>
-<%= link_to 'Back', tickets_path %>
+<%= link_to 'Изменить', edit_ticket_path(@ticket), class: "btn btn-secondary" if ["QA","admin"].include?(current_user.role) %>
+<%= link_to 'Назад', tickets_path, class: "btn btn-secondary" %>
+</div>

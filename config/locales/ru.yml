@@ -1,0 +1,7 @@
+ru:
+  activerecord:
+    models:
+      retailers: "Retailers"
+    attributes:
+      title:
+        b_name: "Название"

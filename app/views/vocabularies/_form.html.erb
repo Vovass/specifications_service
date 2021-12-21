@@ -1,7 +1,7 @@
 <%= form_with(model: vocabulary) do |form| %>
   <% if vocabulary.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(vocabulary.errors.count, "error") %> prohibited this vocabulary from being saved:</h2>
+      <h2><%= pluralize(vocabulary.errors.count, "ошибка") %> препятствует сохранению:</h2>
 
       <ul>
         <% vocabulary.errors.each do |error| %>
@@ -12,21 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.label :name, "Название" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
+    <%= form.label :description, "Описание"%>
     <%= form.rich_text_area :description %>
   </div>
 
   <div class="field">
-    <%= form.label :spec_name %>
-    <%= form.text_field :spec_name %>
+    <%= form.label :spec_name, "Комерческое название" %>
+    <%= form.text_field :spec_name, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "#{vocabulary.new_record? ? 'Создать' : 'Обновить' }", class: "btn btn-primary"%>
   </div>
 <% end %>

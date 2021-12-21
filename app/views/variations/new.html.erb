@@ -1,4 +1,6 @@
-<h1>New Variation for <%= @field.title %></h1>
-<%= render 'form', variation: @variation %>
+<div class="container">
+  <h1>Новая вариация для <%= @field.title %></h1>
+  <%= render 'form', variation: @variation %>
 
-<%= link_to 'Back', @field.retailer, :"data-turbolinks" => "false" %>
+  <%= link_to 'Назад', @field.retailer, :"data-turbolinks" => "false", class: "btn btn-secondary" %>
+</div>

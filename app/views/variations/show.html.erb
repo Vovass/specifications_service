@@ -8,5 +8,5 @@
   <%= @variation.description %>
 </p>
 
-<%= link_to 'Edit', edit_variation_path(@variation) %> |
-<%= link_to 'Back', field_path(@variation.field_id), :"data-turbolinks" => "false" %>
+<%= link_to 'Изменить', edit_variation_path(@variation), class: "btn btn-secondary" %></br
+<%= link_to 'Назад', field_path(@variation.field_id), :"data-turbolinks" => "false" %>

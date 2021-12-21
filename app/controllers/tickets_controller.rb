@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_ticket, only: %i[ show edit update destroy ]
   before_action :check_role, only: %i[ edit ]
 
@@ -19,7 +20,7 @@ class TicketsController < ApplicationController
       respond_to do |format|
         if @ticket.save
           retailer = Field.find(field_id).retailer
-          format.html { redirect_to retailer, notice: "Ticket was successfully created." }
+          format.html { redirect_to retailer, notice: "Задача была успешно создана." }
           format.json { render :show, status: :created, location: retailer }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +42,7 @@ class TicketsController < ApplicationController
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to @ticket, notice: "Ticket was successfully created." }
+        format.html { redirect_to @ticket, notice: "Задача была успешно создана." }
         format.json { render :show, status: :created, location: @ticket }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +55,7 @@ class TicketsController < ApplicationController
   def update
     respond_to do |format|
       if @ticket.update(ticket_params)
-        format.html { redirect_to @ticket, notice: "Ticket was successfully updated." }
+        format.html { redirect_to @ticket, notice: "Задача была успешно обновлена." }
         format.json { render :show, status: :ok, location: @ticket }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +68,7 @@ class TicketsController < ApplicationController
   def destroy
     @ticket.destroy
     respond_to do |format|
-      format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
+      format.html { redirect_to tickets_url, notice: "Задача была успешно удалена." }
       format.json { head :no_content }
     end
   end
@@ -79,7 +80,7 @@ class TicketsController < ApplicationController
     end
 
   def check_role
-    respond_to { |format| format.html { redirect_to tickets_path, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+    respond_to { |format| format.html { redirect_to tickets_path, alert: "У вас нету доступа к просмотру содержимого этой страницы" } } unless ["QA","admin"].include? current_user.role
   end
 
     # Only allow a list of trusted parameters through.

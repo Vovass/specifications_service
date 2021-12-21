@@ -18,7 +18,7 @@ class FieldHistoriesController < ApplicationController
 
     respond_to do |format|
       if @field_history.save
-        format.html { redirect_to @field_history, notice: "Field history was successfully created." }
+        format.html { redirect_to @field_history, notice: "История поля была успешно создан." }
         format.json { render :show, status: :created, location: @field_history }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -37,7 +37,7 @@ class FieldHistoriesController < ApplicationController
       binding.pry
       if @field.update(history_restored_params)
         FieldHistory.new(field_history_restored_params).save!
-        format.html { redirect_to retailer_path(@field.retailer_id), notice: "Field was successfully restored from history." }
+        format.html { redirect_to retailer_path(@field.retailer_id), notice: "Поле успешно возвращено из истори." }
         format.json { render :show, status: :ok, location: retailer_path(@field.retailer_id) }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -1,7 +1,7 @@
 <%= form_with(model: retailer) do |form| %>
   <% if retailer.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(retailer.errors.count, "error") %> prohibited this retailer from being saved:</h2>
+      <h2><%= pluralize(retailer.errors.count, "ошибка") %> препятствует сохранению:</h2>
 
       <ul>
         <% retailer.errors.each do |error| %>
@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :title, "Название" %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "#{retailer.new_record? ? 'Создать' : 'Изменить' }", class: "btn btn-primary" %>
   </div>
 <% end %>

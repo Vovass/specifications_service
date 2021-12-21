@@ -4,7 +4,7 @@
       <%= comment.body %>
       -
       <%= comment.user.email %>
-      <%= link_to 'reply', new_retailer_comment_path(@retailer, parent_id: comment.id), remote: true, class: 'd-block' %>
+      <%= link_to 'ответить', new_retailer_comment_path(@retailer, parent_id: comment.id), remote: true, class: 'd-block ' %>
     </div>
     <% if comment.replies.any? %>
       <% comment.replies.each do |reply| %>

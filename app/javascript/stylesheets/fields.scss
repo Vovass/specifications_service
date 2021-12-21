@@ -27,14 +27,6 @@ textarea {
   margin-bottom: calc(-1 * var(--bordersize));
 }
 
-a.btn-primary {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  background-color: #fff;
-}
-a.btn {
-  color: #6c757d;
-}
 
 .hide a.btn {
   padding: 3px 10px;
@@ -60,6 +52,11 @@ a.btn {
   position: fixed;
   left: 5%;
   bottom: 10%;
+}
+
+.select_search_raw {
+  display: inline-block;
+  min-width: 250px;
 }
 
 

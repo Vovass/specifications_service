@@ -18,9 +18,9 @@
         <td><%= comment.body %></td>
         <td><%= comment.retailer_id %></td>
         <td><%= comment.parent_id %></td>
-        <td><%= link_to 'Show', comment %></td>
-        <td><%= link_to 'Edit', edit_comment_path(comment) %></td>
-        <td><%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Показать', comment, class: "btn btn-secondary" %></td>
+        <td><%= link_to 'Изменить', edit_comment_path(comment), class: "btn btn-secondary" %></td>
+        <td><%= link_to 'Удалить', comment, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>

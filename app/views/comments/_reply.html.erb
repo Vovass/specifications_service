@@ -3,7 +3,7 @@
     <%= reply.body %>
     -
     <%= reply.user.email %>
-    <%= link_to 'reply', new_retailer_comment_path(@retailer, parent_id: reply.id), remote: true, class: 'd-block' %>
+    <%= link_to 'ответить', new_retailer_comment_path(@retailer, parent_id: reply.id), remote: true, class: 'd-block ' %>
   </div>
   <% if reply.replies.any? %>
     <% reply.replies.each do |reply_another| %>

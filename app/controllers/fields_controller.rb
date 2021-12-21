@@ -23,7 +23,7 @@ class FieldsController < ApplicationController
       @ticket = Ticket.new(name: "DA", user_id: current_user.id)
       @ticket.save
     end
-    @field = @retailer.fields.new(field_params.merge(user_id: current_user.id, ticket_ids: @ticket.id))
+    @field = @retailer.fields.new(field_params.merge(user_id: current_user.id, ticket_ids: @ticket&.id))
     if @field.save
         if @field.variations.new({name: "General", description: nil }.merge(user_id: current_user.id)).save
           FieldHistory.new(field_history_params).save!
@@ -39,7 +39,7 @@ class FieldsController < ApplicationController
     respond_to do |format|
       if @field.update(field_params)
         FieldHistory.new(field_history_params(_update: true)).save!
-        format.html { redirect_to @field, notice: "Field was successfully updated." }
+        format.html { redirect_to @field, notice: "Поле было успешно обновлено." }
         format.json { render :show, status: :ok, location: @field }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class FieldsController < ApplicationController
     FieldHistory.new(field_history_params(_destroy: @field.title)).save!
     @field.destroy
     respond_to do |format|
-      format.html { redirect_to retailer_url(@field.retailer_id), notice: "Field was successfully destroyed." }
+      format.html { redirect_to retailer_url(@field.retailer_id), notice: "Поле было успешно удалено." }
       format.json { head :no_content }
     end
   end
@@ -69,7 +69,7 @@ class FieldsController < ApplicationController
   end
 
   def check_role
-    respond_to { |format| format.html { redirect_to @retailer || @field.retailer, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+    respond_to { |format| format.html { redirect_to @retailer || @field.retailer, alert: "У вас нету доступа к просмотру содержимого этой страницы" } } unless ["QA","admin"].include? current_user.role
   end
 
   def cur_retailer
@@ -85,10 +85,10 @@ class FieldsController < ApplicationController
     return {
       field_id: @field[:id],
       retailer_id: @field.retailer_id,
-      fields_title: "Field #{_destroy} - destroyed",
-      variation_name: "Field #{_destroy} - destroyed",
-      description: "Field #{_destroy} - destroyed",
-      vocabulary_name: "Field #{_destroy} - destroyed",
+      fields_title: "Поле #{_destroy} - удалено",
+      variation_name: "Поле #{_destroy} - удалено",
+      description: "Поле #{_destroy} - удалено",
+      vocabulary_name: "Поле #{_destroy} - удалено",
       user_id: current_user.id
     } if _destroy
 

@@ -1,6 +1,8 @@
-<h1>Editing Ticket</h1>
+<div class="container">
+<h1>Изменение задачи</h1>
 
 <%= render 'form', ticket: @ticket %>
 
-<%= link_to 'Show', @ticket %> |
-<%= link_to 'Back', tickets_path %>
+<%= link_to 'Показать', @ticket, class: "btn btn-secondary" %>
+<%= link_to 'Назад', tickets_path, class: "btn btn-secondary" %>
+</div>

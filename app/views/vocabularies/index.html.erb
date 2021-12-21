@@ -1,36 +1,33 @@
-<%= link_to 'History', vocabulary_histories_path %>
+<span class="elem_with_icon">
+  <i class="material-icons">book</i>
+  <%= link_to 'История', vocabulary_histories_path %></br>
+</span>
+<h1>Вокабуляр</h1>
 
-<h1>Vocabularies</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Display name</th>
-      <th>Used in spec</th>
-      <th>Created by</th>
-      <th colspan="5"></th>
-    </tr>
-  </thead>
+<%= link_to 'Новое поле вокабуляра', new_vocabulary_path, class: "btn btn-primary" if ["QA","admin"].include?(current_user.role) %>
 
-  <tbody>
-    <% @vocabularies.each do |vocabulary| %>
-      <tr>
-        <td><%= vocabulary.name %></td>
-        <td><%= vocabulary.description %></td>
-        <td><%= vocabulary.spec_name %></td>
-        <td><%= vocabulary.fields.size.blank? ? 0 : vocabulary.fields.size %></td>
-        <td><%= vocabulary.user.nil? ? "" : vocabulary.user.email %></td>
-        <td><%= link_to 'Show', vocabulary %></td>
-        <% if ["QA","admin"].include?(current_user.role) %>
-          <td><%= link_to 'Edit', edit_vocabulary_path(vocabulary) %></td>
-          <td><%= link_to 'Destroy', vocabulary, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
-      </tr>
+<div class="row caption content">
+  <div class="col-sm-2">Название</div>
+  <div class="col-sm-5">Описание</div>
+  <div class="col-sm-2">Комерческое название</div>
+  <div class="col-sm-1">Используется в спецификациях</div>
+  <div class="col-sm-1">Создано</div>
+  <div class="col-sm-1">Действие</div>
+</div>
+<% @vocabularies.each do |vocabulary| %>
+<div class="row caption content">
+  <div class="col-sm-2"><%= vocabulary.name %></div>
+  <div class="col-sm-5"><%= vocabulary.description %></div>
+  <div class="col-sm-2"><%= vocabulary.spec_name %></div>
+  <div class="col-sm-1"><%= vocabulary.fields.size.blank? ? 0 : vocabulary.fields.size %></div>
+  <div class="col-sm-1"><%= vocabulary.user.nil? ? "" : vocabulary.user.email %></div>
+  <div class="col-sm-1">
+    <%= link_to 'Показать', vocabulary, class: "btn btn-secondary" %>
+    <%= link_to 'Изменить', edit_vocabulary_path(vocabulary), class: "btn btn-secondary" %>
+    <%#= link_to 'Удалить', vocabulary, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger" %>
+  </div>
+</div>
+
+
     <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Vocabulary', new_vocabulary_path if ["QA","admin"].include?(current_user.role) %>

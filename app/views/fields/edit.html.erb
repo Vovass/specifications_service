@@ -1,6 +1,10 @@
-<h1>Editing Field</h1>
+<div class="container">
+  <h1>Изменение поля</h1>
 
-<%= render 'form', field: @field %>
+  <%= render 'form', field: @field %>
 
-<%= link_to 'Show', @field %> |
-<%= link_to 'Back', @field %>
+  <%= link_to 'Показать', @field, class: "btn btn-secondary" %>
+  </br>
+  </br>
+  <%= link_to 'Назад', @field, class: "btn btn-secondary" %>
+</div>

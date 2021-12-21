@@ -1,7 +1,7 @@
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(user.errors.count, "ошибка") %> препятствует сохранению:</h2>
 
       <ul>
         <% user.errors.each do |error| %>
@@ -12,12 +12,12 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :role , "Current role: #{user.role}"%>
-    <%= form.label :user_role , "New Role"%>
-    <%= form.collection_select :user_role_id, UserRole.all, :id, :role %>
+    <%= form.label :role , "Текущая роль: #{user.role}"%>
+    <%= form.label :user_role , "Новая роль"%>
+    <%= form.collection_select :user_role_id, UserRole.all, :id, :role, {},{class: "sel_desc"} %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Обновить пользователя", class: "btn btn-primary" %>
   </div>
 <% end %>

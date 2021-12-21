@@ -17,7 +17,7 @@ class VocabularyHistoriesController < ApplicationController
 
     respond_to do |format|
       if @vocabulary_history.save
-        format.html { redirect_to @vocabulary_history, notice: "Vocabulary history was successfully created." }
+        format.html { redirect_to @vocabulary_history, notice: "История поля вокабуляра была успешно создана." }
         format.json { render :show, status: :created, location: @vocabulary_history }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -35,7 +35,7 @@ class VocabularyHistoriesController < ApplicationController
     respond_to do |format|
       if @vocabulary.update(history_restored_params)
         VocabularyHistory.new(vocabulary_history_restored_params).save!
-        format.html { redirect_to @vocabulary, notice: "Vocabulary was successfully restored from history." }
+        format.html { redirect_to @vocabulary, notice: "Поле вокабуляра было успешно возвращено из истории." }
         format.json { render :show, status: :ok, location: @vocabulary }
       else
         format.html { render :edit, status: :unprocessable_entity }

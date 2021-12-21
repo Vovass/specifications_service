@@ -1,33 +1,35 @@
+<span class="elem_with_icon">
+  <i class="material-icons">book</i>
+  <%= link_to 'История изменения полей', retailer_field_histories_path(@retailer) %></br>
+</span>
 <p>
-  <strong>Retailer: </strong>
+  <strong>Ретейлеры: </strong>
   <%= @retailer.title %>
 </p>
 
-<%= link_to 'Fields History', retailer_field_histories_path(@retailer)  %></br>
 <% if ["QA","admin"].include?(current_user.role) %>
   <div class="row">
     <div class="col-sm-2">
-      <%= Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}.empty? ? (link_to "New Vocabulary word", new_vocabulary_path, class: "btn btn-primary") : (link_to "Add new field", new_retailer_field_path(@retailer), class: "btn btn-primary") %>
+      <%= Vocabulary.all.select {|el| el unless @retailer.fields.map {|rf| rf[:vocabulary_id]}.include? el[:id]}.empty? ? (link_to "Добавить новое слово в вокабуляр", new_vocabulary_path, class: "btn btn-primary") : (link_to "Добавить новое поле", new_retailer_field_path(@retailer), class: "btn btn-primary") %>
     </div>
   </div>
 <% end %>
 
-
 <% if (@retailer.fields.count > 0)  %>
-  <strong>Fields:</strong>
+  <strong>Поля:</strong>
   <div class="row caption content">
-    <div class="col-sm-2">Name</div>
-    <div class="col-sm-6">Description</div>
-    <div class="col-sm-2">Vocabulary name</div>
-    <div class="col-sm-2"><%= ["QA","admin"].include?(current_user.role) ? "Remove?" :  "Создание задачи" %></div>
+    <div class="col-sm-2">Наименование</div>
+    <div class="col-sm-6">Описание</div>
+    <div class="col-sm-2">Имя вокабуляра</div>
+    <div class="col-sm-2"><%= ["QA","admin"].include?(current_user.role) ? "Удалить?" :  "Создание задачи" %></div>
   </div>
 
   <% @retailer.fields.each_with_index do |r_field, index| %>
     <div class="row content">
-      <div class="col-sm-2"><%=["QA","admin"].include?(current_user.role) ? (link_to "#{index + 1}. #{r_field.title}", r_field, :"data-turbolinks" => "false") : "#{index + 1}. #{r_field.title}" %></div>
+      <div class="col-sm-2"><%=["QA","admin"].include?(current_user.role) ? (link_to "#{index + 1}. #{r_field.title}", r_field, :"data-turbolinks" => "false", class: "btn btn-secondary") : "#{index + 1}. #{r_field.title}" %></div>
       <div class="col-sm-6">
         <% if r_field.variations.size > 1%>
-          <select class="sel_desc result_hide_field_<%=index%> ">
+          <select class="sel_desc result_hide_field_<%=index%>">
             <% r_field.variations.each_with_index do |var, r_index| %>
               <option id ="sel-<%=r_index%>" class="sel-<%=r_index%>"><%= var.name%></option>
             <% end %>
@@ -38,47 +40,42 @@
             <div class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>" ><%= var.description %></div>
             <% if ["QA","admin"].include?(current_user.role) %>
               <% if r_field.variations.size != 1 %>
-                <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Remove variation', var, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></span>
+                <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Удалить вариацию', var, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger" %></span>
               <% end %>
-              <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Edit variation', edit_variation_path(var), class: "btn btn-secondary" %></span>
-              <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Add Variation', new_field_variation_path(r_field), class: "btn btn-secondary" %></span>
+              <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Изменить вариацию', edit_variation_path(var), class: "btn btn-secondary" %></span>
+              <span class="hide hide_result_<%=r_index%> result_hide_field_<%=index%>"><%= link_to 'Добавить вариацию', new_field_variation_path(r_field), class: "btn btn-secondary" %></span>
             <% end %>
           <% end %>
         </div>
       </div>
       <div class="col-sm-2"><%= r_field.vocabulary.name%></div>
 
-        <!--  Разделение на QA и DA-->
       <% if ["QA","admin"].include? current_user.role %>
-        <div class="col-sm-2"><%= link_to 'Remove', r_field, method: :delete, data: { confirm: 'Are you sure?'} %></div>
+        <div class="col-sm-2"><%= link_to 'Удалить', r_field, method: :delete, data: { confirm: 'Вы уверены?'}, class: "btn btn-danger" %></div>
       <% else %>
         <div class="col-sm-2"><%= link_to 'Запросить задачу', controller: "tickets", method: :get, action: :new, data: { confirm: 'Создать задачу?'}, params: {field_id: r_field.id} %></div>
       <% end %>
 
-
-
     </div>
   <% end %>
 <% else %>
-  <strong>No fields</strong>
+  <strong>На текущий момент нет полей</strong>
 <% end %>
 
-
-
-
   <div class="card-body">
-    <p class="font-weight-bold" style="color: red">Comments или Будь первым кто оставит комментарий</p>
+    <% if @retailer.comments.empty? %>
+      <p class="font-weight-bold comment_text">Будь первым кто оставит комментарий:</p>
+    <% else %>
+      <p class="font-weight-bold comment_text">Комментарии:</p>
+    <% end %>
     <%= render @retailer.comments %>
     <%= form_with(model: [@retailer, @retailer.comments.build]) do |f| %>
       <div class="form-group">
-        <%= f.label 'New comment' %>
-        <%= f.text_area :body, class: 'form-control' %>
+        <%= f.label 'Новый коментарий' %>
+        <%= f.text_area :body, class: 'form-control', required: "required" %>
       </div>
-      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+      <%= f.submit 'Отправить', class: 'btn btn-primary' %>
     <% end %>
   </div>
 
-
-
-
-<%= link_to 'Back', retailers_path %>
+<%= link_to 'Назад', retailers_path, class: "btn btn-secondary" %>

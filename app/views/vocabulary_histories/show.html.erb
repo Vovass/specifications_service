@@ -1,16 +1,20 @@
-<%= link_to 'Field data', vocabulary_path(@vocabulary_history.vocabulary) %>
+<span class="elem_with_icon">
+  <i class="material-icons">bookmark</i>
+  <%= link_to 'Field data', vocabulary_path(@vocabulary_history.vocabulary) %>
+  </span>
+
 
 <table>
   <thead>
   <tr>
-    <th>Version </th>
-    <th>Date </th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Spec name</th>
-    <th>Vocabulary field</th>
-    <% if ["QA","admin"].include?(current_user.role) %><th>Restore?</th> <% end %>
-    <th>Created by</th>
+    <th>Версия </th>
+    <th>Дата </th>
+    <th>Название</th>
+    <th>Описание</th>
+    <th>Комерческое название</th>
+    <th>Поле вокабуляра</th>
+    <% if ["QA","admin"].include?(current_user.role) %><th>Востановить?</th> <% end %>
+    <th>Создано</th>
     <th colspan="9"></th>
   </tr>
   </thead>
@@ -41,7 +45,7 @@
       <td><%= vocabulary_history.vocabulary.name  %></td>
 
       <% if ["QA","admin"].include?(current_user.role) %>
-        <td><%= (index == 0) ? "Current content" : (link_to 'Restore history content', vocabulary_history, method: :put, data: { confirm: 'Are you sure?' }) %></td>
+        <td><%= (index == 0) ? "Текущий контент" : (link_to 'Восстановить контент', vocabulary_history, method: :put, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger") %></td>
       <% end %>
       <td><%= vocabulary_history.user.email  %></td>
     </tr>
@@ -49,4 +53,4 @@
   </tbody>
 </table>
 
-<%= link_to 'Back', vocabulary_histories_path %>
+<%= link_to 'Назад', vocabulary_histories_path, class: "btn btn-secondary" %>

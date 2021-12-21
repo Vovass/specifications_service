@@ -2,13 +2,12 @@
 
 <%= paginate @users %>
 
-<p style="color: red"> задать инстой парочку ролей из select которые и будут записываться в базу при сете ! только если ты админ</p>
-<strong>Users:</strong>
+<strong>Пользователи:</strong>
 <div class="row caption content">
-  <div class="col-sm-2">Email</div>
-  <div class="col-sm-2">Created_at</div>
-  <div class="col-sm-2">Role</div>
-  <div class="col-sm-2">Change?</div>
+  <div class="col-sm-2">Почта</div>
+  <div class="col-sm-2">Дата регистрации</div>
+  <div class="col-sm-2">Роль</div>
+  <div class="col-sm-2">Изменения</div>
 </div>
 
 <% @users.each do |user| %>
@@ -16,7 +15,7 @@
     <div class="col-sm-2"><%= user.email %></div>
     <div class="col-sm-2"><%= user.created_at %></div>
     <div class="col-sm-2"><%= user.role %></div>
-    <div class="col-sm-2"><%= user.role.eql?('admin') ? '' : (link_to "Edit", user) %></div>
+    <div class="col-sm-2"><%= user.role.eql?('admin') ? '' : (link_to "Edit", user, class: "btn btn-secondary") %></div>
   </div>
 <% end %>
 

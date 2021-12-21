@@ -27,7 +27,7 @@ class RetailersController < ApplicationController
 
     respond_to do |format|
       if @retailer.save
-        format.html { redirect_to @retailer, notice: "Retailer was successfully created." }
+        format.html { redirect_to @retailer, notice: "Ретейлер был успешно создан." }
         format.json { render :show, status: :created, location: @retailer }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class RetailersController < ApplicationController
   def update
     respond_to do |format|
       if @retailer.update(retailer_params)
-        format.html { redirect_to @retailer, notice: "Retailer was successfully updated." }
+        format.html { redirect_to @retailer, notice: "Ретейлер был успешно обновлен." }
         format.json { render :show, status: :ok, location: @retailer }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class RetailersController < ApplicationController
   def destroy
     @retailer.destroy
     respond_to do |format|
-      format.html { redirect_to retailers_url, notice: "Retailer was successfully destroyed." }
+      format.html { redirect_to retailers_url, notice: "Ретейлер был успешно удален." }
       format.json { head :no_content }
     end
   end
@@ -65,7 +65,7 @@ class RetailersController < ApplicationController
     end
 
     def check_role
-      respond_to { |format| format.html { redirect_to retailers_path, alert: "You do not have access to view this page" } } unless ["QA","admin"].include? current_user.role
+      respond_to { |format| format.html { redirect_to retailers_path, alert: "У вас нету доступа к просмотру содержимого этой страницы" } } unless ["QA","admin"].include? current_user.role
     end
 
   # Only allow a list of trusted parameters through.

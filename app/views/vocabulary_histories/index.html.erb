@@ -1,38 +1,30 @@
-<%= link_to 'Vocabularies', vocabularies_path %>
-
+<span class="elem_with_icon">
+  <i class="material-icons">menu_book</i>
+  <%= link_to 'Вокабуляр', vocabularies_path %></br>
+</span>
 <%= paginate @vocabulary_histories %>
 
-<h1>Vocabulary Histories</h1>
+<h1>История изменения вокабуляра</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Spec name</th>
-      <th>Vocabulary field</th>
-      <th>Version #</th>
-      <th>User</th>
-      <th colspan="7"></th>
-    </tr>
-  </thead>
+  <div class="row caption content">
+    <div class="col-sm-1">Дата изменения</div>
+    <div class="col-sm-2">Название</div>
+    <div class="col-sm-5">Описание</div>
+    <div class="col-sm-1">Комерческое название</div>
+    <div class="col-sm-1">Версия</div>
+    <div class="col-sm-1">Пользователь</div>
+    <div class="col-sm-1">Действие</div>
+  </div>
 
-  <tbody>
-    <% @vocabulary_histories.each do |vocabulary_history| %>
-      <tr>
-        <td><%= vocabulary_history.updated_at %></td>
-        <td><%= vocabulary_history.name %></td>
-        <td><%= vocabulary_history.description %></td>
-        <td><%= vocabulary_history.spec_name %></td>
-        <td><%= vocabulary_history.vocabulary.nil? ? "Destroyed field" : vocabulary_history.vocabulary.name  %></td>
-        <td><%= vocabulary_history.version.nil? ? "No set version" : vocabulary_history.version %></td>
-        <td><%= vocabulary_history.user.nil? ? "No user" : vocabulary_history.user.email %></td>
-        <td><%= vocabulary_history.vocabulary.nil? ? "" : (link_to 'Show', vocabulary_history) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+  <% @vocabulary_histories.each do |vocabulary_history| %>
+    <div class="row caption content">
+      <div class="col-sm-1"><%= vocabulary_history.updated_at %></div>
+      <div class="col-sm-2"><%= vocabulary_history.name %></div>
+      <div class="col-sm-5"><%= vocabulary_history.description %></div>
+      <div class="col-sm-1"><%= vocabulary_history.spec_name %></div>
+      <div class="col-sm-1"><%= vocabulary_history.version.nil? ? "No set version" : vocabulary_history.version %></div>
+      <div class="col-sm-1"><%= vocabulary_history.user.nil? ? "No user" : vocabulary_history.user.email %></div>
+      <div class="col-sm-1"><%= vocabulary_history.vocabulary.nil? ? "" : (link_to 'Показать', vocabulary_history, class: "btn btn-secondary") %></div>
+    </div>
+  <% end %>
 

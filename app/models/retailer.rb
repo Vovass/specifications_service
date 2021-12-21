@@ -1,7 +1,7 @@
 class Retailer < ApplicationRecord
   paginates_per 30
 
-  validates :title, presence: true, uniqueness: true
+  validates :title, presence: { message: 'не может быть пустым'}, uniqueness: true
 
   belongs_to :user
   has_many :fields

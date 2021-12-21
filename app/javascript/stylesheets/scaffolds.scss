@@ -1,8 +1,20 @@
-body {
+.body_content {
   background-color: #fff;
   color: #333;
   //margin: 33px;
   padding: 20px
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.search {
+  max-height: 40px;
+}
+
+.search input {
+  margin-left: 10px;
 }
 
 .account {
@@ -26,7 +38,7 @@ body {
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   line-height: 18px; }
 
 pre {
@@ -34,16 +46,35 @@ pre {
   padding: 10px;
   font-size: 11px; }
 
-a {
-  color: #000; }
+a.btn {
+  //color: #6c757d;
+  color: rgba(0, 0, 0, 0.85);
+}
 
-a:visited {
-  color: #666; }
+a.btn-primary {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: #fff;
+}
 
-a:hover {
-  color: #777;
-  //background-color: #000;
-  }
+a.btn-primary:hover {
+  background-color: #0d6efd;
+}
+
+a.btn-secondary {
+  padding: 2px 7px;
+  background-color: #fff;
+  border-color: #CCCCCC;
+}
+
+a.btn-danger {
+  padding: 2px 7px;
+  background-color: #fff;
+}
+
+#navbarNav {
+  padding: 0;
+}
 
 th {
   padding-bottom: 5px; }
@@ -54,6 +85,10 @@ td {
 div.field,
 div.actions {
   margin-bottom: 10px; }
+
+.field input {
+  max-width: 240px;
+}
 
 #notice {
   color: green; }
@@ -89,4 +124,52 @@ label {
 
 nav.pagination span{
   margin-right: 3px;
+}
+
+.elem_with_icon {
+  display: inline-block;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding: 5px 10px 10px 5px;
+}
+
+.elem_with_icon:hover {
+  cursor: pointer;
+  background-color: #333;
+  color: #fff;
+  transition: color 0.35s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.elem_with_icon a {
+  color: #333;
+  text-decoration: none;
+}
+
+.elem_with_icon a:visited {
+  color: inherit;
+}
+
+.pagination span {
+  padding: 8px 12px 7px 13px;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 60%) inset;
+  background: #eff1f3;
+  background: -webkit-linear-gradient(top,#f7f8fa,#e7e9ec);
+  background: linear-gradient(to bottom,#f7f8fa,#e7e9ec);
+}
+
+.pagination span a {
+  color: #333;
+  text-decoration: none;
+}
+
+.pagination span.current {
+  color: #0d6efd;
+  border: 1px solid #0d6efd;
+  border-color: #0d6efd;
+}
+
+.pagination span a:hover {
+  color: #0d6efd;
 }
