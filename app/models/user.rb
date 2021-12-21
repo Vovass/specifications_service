@@ -24,7 +24,7 @@ class User < ApplicationRecord
   end
 
   def set_role_name
-    self.role = self.user_role.role
+    self.role = self.user_role&.role
   end
 
 end

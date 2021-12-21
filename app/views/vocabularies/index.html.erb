@@ -23,7 +23,7 @@
   <div class="col-sm-1"><%= vocabulary.user.nil? ? "" : vocabulary.user.email %></div>
   <div class="col-sm-1">
     <%= link_to 'Показать', vocabulary, class: "btn btn-secondary" %>
-    <%= link_to 'Изменить', edit_vocabulary_path(vocabulary), class: "btn btn-secondary" %>
+    <%= link_to 'Изменить', edit_vocabulary_path(vocabulary), class: "btn btn-secondary" if ["QA","admin"].include? current_user.role%>
     <%#= link_to 'Удалить', vocabulary, method: :delete, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger" %>
   </div>
 </div>

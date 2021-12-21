@@ -17,7 +17,9 @@
     <th>Вариация</th>
     <th>Описание</th>
     <th>Вокабуляр</th>
-    <th>Востановить ?</th>
+    <%if ["QA","admin"].include? current_user.role %>
+      <th>Востановить ?</th>
+    <% end %>
     <th>Создано</th>
     <th colspan="9"></th>
   </tr>
@@ -52,9 +54,10 @@
       <% else %>
         <td><%= field_history.vocabulary_name %></td>
       <% end %>
-
-      <td><%= (index == 0 || field_history.variation_name =~ /Create new variation:/) ? "Текущий контент" : (link_to 'Востановить контент', retailer_field_history_path(field_history), method: :put, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger") %></td>
-      <td><%= field_history.user.email  %></td>
+      <%if ["QA","admin"].include? current_user.role %>
+        <td><%= (index == 0 || field_history.variation_name =~ /Create new variation:/) ? "Текущий контент" : (link_to 'Востановить контент', retailer_field_history_path(field_history), method: :put, data: { confirm: 'Вы уверены?' }, class: "btn btn-danger") %></td>
+      <% end %>
+        <td><%= field_history.user.email  %></td>
     </tr>
   <% end %>
   </tbody>
